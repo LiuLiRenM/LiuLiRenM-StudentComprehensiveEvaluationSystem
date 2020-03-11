@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!--配置不拦截的资源-->
+    <security:http pattern="/login.jsp" security="none"/>
+    <security:http pattern="/fail.jsp" security="none"/>
+    <security:http pattern="/captcha" security="none"/>
+    <security:http pattern="/css/**" security="none"/>
+    <security:http pattern="/images/**" security="none"/>
+    <security:http pattern="/fonts/**" security="none"/>
+    <security:http pattern="/js/**" security="none"/>
+    <security:http pattern="/vendor/**" security="none"/>
+
+    <!--
+        配置具体的规则
+            auto-config="true"   不用自己编写登录页面，框架提供默认登录页面
+            use-expressions="false"    是否使用SPEL表达式-->
+    <security:http auto-config="true" use-expressions="false">
+        <!--配置具体的拦截规则
+            pattern:请求路径的规则
+            access:访问系统的用户必须具有的角色-->
+        <security:intercept-url pattern="/**" access="ROLE_ADMIN, ROLE_STUDENT, ROLE_TEACHER"/>
+
+        <!--定义跳转的具体的页面
+            login-page:设置自己的登录页面
+            login-procesing-url:登录请求拦截的url,也就是form表单提交时指定的action
+            default-target-url:默认登录成功后跳转的url
+            authentication-failure-url:登录失败后跳转的url
+            authentication-success-forward-url:登录成功之后跳转的URL-->
+        <security:form-login
+                login-page="/login.jsp"
+                login-processing-url="/login.do"
+                default-target-url="/index.jsp"
+                authentication-failure-url="/fail.jsp"
+                authentication-success-forward-url="/index.jsp"/>
+
+        <!--关闭跨域请求-->
+        <security:csrf disabled="true"/>
+
+        <!--退出-->
+
+
+    </security:http>
+
+    <!--切换成数据库中的用户名和密码-->
+    <security:authentication-manager>
+        <security:authentication-provider user-service-ref="userService">
+
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+    <!--配置加密类-->
+   <!-- <bean class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" id="passwordEncoder"/>-->
+
+    <!-- 提供了入门的方式，在内存中存入用户名和密码-->
+   <!-- <security:authentication-manager>
+    	<security:authentication-provider>
+    		<security:user-service>
+    			<security:user name="admin" password="{noop}admin" authorities="ROLE_ADMIN"/>
+    		</security:user-service>
+    	</security:authentication-provider>
+    </security:authentication-manager>-->
+
+</beans>
