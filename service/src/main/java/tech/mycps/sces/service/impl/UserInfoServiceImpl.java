@@ -26,6 +26,12 @@ public class UserInfoServiceImpl implements UserInfoService {
         return userDao.findAll();
     }
 
+    /**
+     * 通过username判断该username是否具有登录权限
+     * @param s
+     * @return
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UserInfo userInfo = null;
@@ -50,4 +56,6 @@ public class UserInfoServiceImpl implements UserInfoService {
         }
         return list;
     }
+
+
 }
