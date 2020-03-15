@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="zh-CN">
 <head>
-    <title>用户登录</title>
+    <title>登录</title>
 
     <%--字体相关的CSS--%>
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -32,20 +32,6 @@
 
     <script type="text/javascript" src="vendor/jquery-3.2.1.min.js"></script>
 
-    <script type="text/javascript">
-        $(function () {
-            $("#checkCode_img").click(function () {
-                $("#checkCode_img").attr("src", "/image/checkcode.do?time=" + new Date().getTime());
-            });
-            $("#submit").click(function () {
-                //alert("test");
-                //let session = '<%=request.getSession().getAttribute("captcha")%>';
-                //alert($("#checkCode").val());
-                //$.post();
-            });
-
-        });
-    </script>
 </head>
 <body class="animsition">
 
@@ -56,8 +42,10 @@
                     <div class="login-content">
                         <div class="login-logo">
                             <a href="#">
-                                <img src="images/icons/alien.png" alt="学生测评系统" id="logo">
+                                <img src="images/icons/logo_login.png" alt="学生测评系统" id="logo">
                             </a>
+                            <h1>学生综合测评系统</h1>
+
                         </div>
                         <div class="login-form">
                             <form action="${pageContext.request.contextPath}/login.do" method="post">

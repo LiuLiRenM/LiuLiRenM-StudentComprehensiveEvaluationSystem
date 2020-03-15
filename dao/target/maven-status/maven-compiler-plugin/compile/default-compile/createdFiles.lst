@@ -1,2 +1,4 @@
+tech/mycps/sces/dao/PermissionDao.class
+tech/mycps/sces/dao/MenuDao.class
 tech/mycps/sces/dao/RoleDao.class
 tech/mycps/sces/dao/UserInfoDao.class

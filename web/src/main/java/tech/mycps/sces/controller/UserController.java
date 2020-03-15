@@ -16,8 +16,8 @@ public class UserController {
     @Autowired
     private UserInfoService userService;
 
-    @RequestMapping("/findall")
-    public ModelAndView findAll() {
+    @RequestMapping("/findall.do")
+    public void findAll() {
         ModelAndView modelAndView = new ModelAndView();
         List<UserInfo> users = userService.findAll();
         modelAndView.addObject(users);
@@ -25,6 +25,5 @@ public class UserController {
                 users) {
             System.out.println(user);
         }
-        return modelAndView;
     }
 }

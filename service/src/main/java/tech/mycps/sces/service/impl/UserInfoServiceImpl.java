@@ -7,7 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import tech.mycps.sces.dao.PermissionDao;
 import tech.mycps.sces.dao.UserInfoDao;
+import tech.mycps.sces.domain.Permission;
 import tech.mycps.sces.domain.Role;
 import tech.mycps.sces.domain.UserInfo;
 import tech.mycps.sces.service.UserInfoService;
@@ -20,6 +22,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Autowired
     private UserInfoDao userDao;
+    @Autowired
+    private PermissionDao permissionDao;
 
     //查询所有记录
     public List<UserInfo> findAll() {
@@ -37,9 +41,20 @@ public class UserInfoServiceImpl implements UserInfoService {
         UserInfo userInfo = null;
         try {
             userInfo = userDao.findByUsername(s);
+            /*List<Role> roles = userInfo.getRoles();
+            for (Role role : roles
+                 ) {
+                List<Permission> permissions = permissionDao.findPermissionByRole(role.getId());
+                System.out.println(permissions);
+                *//*for (Permission permission : permissions) {
+                    System.out.println(permission.getMenus());
+                }*//*
+            }*/
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //System.out.println(userInfo);
+
         //将自己写的user对象封装成UserDetails（SpringSecurity提供的一个类）
         return new User(userInfo.getUsername(), "{noop}" + userInfo.getPassword(),
                 userInfo.getStatus() == 0 ? false : true,true,

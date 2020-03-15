@@ -1,4 +1,4 @@
-
+/*各种图表的数据展示*/
 (function ($) {
   // USE STRICT
   "use strict";
@@ -1578,7 +1578,7 @@
  
 
   // Sublist Sidebar
-  try {
+  /*try {
     var arrow = $('.js-arrow');
     arrow.each(function () {
       var that = $(this);
@@ -1592,8 +1592,23 @@
 
   } catch (error) {
     console.log(error);
-  }
+  }*/
 
+  try {
+    $("#sidebar").on("click", ".js-arrow", function (e) {
+      e.preventDefault();
+      $(this).find(".arrow").toggleClass("up");
+      $(this).toggleClass("open");
+      $(this).parent().find('.js-sub-list').slideToggle("250");
+    });
+    /*var arrow = $('.js-arrow');
+    arrow.each(function () {
+
+    });*/
+
+  } catch (error) {
+    console.log(error);
+  }
 
   try {
     // Hamburger Menu
