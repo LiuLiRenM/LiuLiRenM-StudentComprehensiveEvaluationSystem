@@ -1605,6 +1605,10 @@
     arrow.each(function () {
 
     });*/
+    $("#sidebar").on("click", ".js_test", function () {
+      $("#content").html("<jsp:include page=\"success.jsp\"/>");
+      alert("test");
+    });
 
   } catch (error) {
     console.log(error);
