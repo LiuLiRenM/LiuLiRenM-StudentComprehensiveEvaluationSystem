@@ -79,12 +79,41 @@
                             <form action="" method="post" class="form-inline">
                                 <div class="form-group">
                                     <label for="exampleInputName2" class="pr-1  form-control-label">系别名称：</label>
-                                    <input type="text" id="exampleInputName2" required="" class="form-control">
+                                    <input type="text" id="exampleInputName2" required="" class="form-control" name="collegeName">
                                 </div>
                             </form>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary btn-sm">
+                            <button type="submit" class="btn btn-primary btn-sm" id="submit2">
+                                <i class="fa fa-dot-circle-o"></i> 保存
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>添加专业信息</strong>
+                        </div>
+                        <div class="card-body card-block">
+                            <form action="" method="post" class="form-inline">
+                                <div class="form-group">
+                                    <label for="exampleInputName" class="pr-1  form-control-label">专业名称：</label>
+                                    <input type="text" id="exampleInputName" required="" class="form-control" name="collegeName">
+                                </div>
+                                <span>&nbsp;&nbsp;&nbsp;</span>
+                                <label for="exampleInputName1" class="pr-1  form-control-label">所属系别：</label>
+                                <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
+                                    <select class="js-select2" name="property" id="exampleInputName1">
+                                        <option selected="selected">请选择系别</option>
+                                        <option value="">Products</option>
+                                        <option value="">Services</option>
+                                    </select>
+                                    <div class="dropDownSelect2"></div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary btn-sm" id="submit">
                                 <i class="fa fa-dot-circle-o"></i> 保存
                             </button>
                         </div>

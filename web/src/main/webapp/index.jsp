@@ -45,7 +45,7 @@
 
 
 </head>
-<body class="animsition">
+<body>
 <div class="page-wrapper">
     <!-- MENU SIDEBAR-->
     <aside class="menu-sidebar d-none d-lg-block">
@@ -75,6 +75,11 @@
             <div class="section__content section__content--p30">
                 <div class="container-fluid" id="content">
 
+
+
+                    <!-- USER DATA-->
+
+                    <!-- END USER DATA-->
 
                 </div>
             </div>
@@ -126,7 +131,7 @@
                     '<ul class="list-unstyled navbar__sub-list js-sub-list">';
                 for (let i = 0; i < firstmMenu.length; i++) {
                     let secondMenu = firstmMenu[i];
-                    list += '<li> <a class="js_test" href="'+ secondMenu["url"] +'">'+ secondMenu["menuName"] +'</a></li>'
+                    list += '<li> <a class="js_test" href="javascript:;" id="'+ secondMenu["menu_id"] +'">'+ secondMenu["menuName"] +'</a></li>'
                 }
                 list += '</ul> </li>';
                 //alert(list);

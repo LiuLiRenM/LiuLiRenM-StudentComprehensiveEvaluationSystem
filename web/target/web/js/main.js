@@ -1605,10 +1605,51 @@
     arrow.each(function () {
 
     });*/
-    $("#sidebar").on("click", ".js_test", function () {
-      $("#content").html("<jsp:include page=\"success.jsp\"/>");
-      alert("test");
+    $("#sidebar").on("click",".js_test", function () {
+      //let id = $(this).attr("id");
+      switch ($(this).attr("id")) {
+        case "collegeInfoManage":
+          $.post("/menus/collegeManage.do", function (data) {
+            //alert("test");
+            $("#content").html(data);
+          });
+          break;
+        case "professionInfoManage":
+          $.post("/menus/professionManage.do", function (data) {
+            $("#content").html(data);
+          });
+          break;
+      }
+
     });
+    $("#content").on("click", "#submit", function () {
+      //console.log("test");
+      let collegeName = $("#exampleInputName2").val();
+      if ("" === collegeName) {
+        alert("系别名称不能为空!");
+      } else {
+         $.post("/menus/saveCollegeName.do", {collegeName:collegeName}, function (data) {
+           alert(data)
+         });
+      }
+
+    });
+    $("#content").on("click", "#submitPro", function () {
+
+      let id = $("#exampleInputName1 option:selected").attr("id");
+      //alert(id);
+      let professionName = $("#exampleInputName").val();
+      if ("undefined" == typeof(id)) {
+        alert("请先选择所属系别");
+      } else if ("" === professionName) {
+        alert("专业名称不能为空!");
+      } else {
+        $.post("/menus/saveProfessionName.do", {professionName:professionName, id:id}, function (data) {
+          alert(data);
+        });
+      }
+    });
+
 
   } catch (error) {
     console.log(error);

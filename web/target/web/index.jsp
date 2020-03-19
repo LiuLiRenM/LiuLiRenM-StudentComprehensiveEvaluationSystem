@@ -45,7 +45,7 @@
 
 
 </head>
-<body class="animsition">
+<body>
 <div class="page-wrapper">
     <!-- MENU SIDEBAR-->
     <aside class="menu-sidebar d-none d-lg-block">
@@ -76,24 +76,10 @@
                 <div class="container-fluid" id="content">
 
 
-                    <div class="card">
-                        <div class="card-header">
-                            <strong>添加系别信息</strong>
-                        </div>
-                        <div class="card-body card-block">
-                            <form action="" method="post" class="form-inline">
-                                <div class="form-group">
-                                    <label for="exampleInputName2" class="pr-1  form-control-label">系别名称：</label>
-                                    <input type="text" id="exampleInputName2" required="" class="form-control">
-                                </div>
-                            </form>
-                        </div>
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary btn-sm">
-                                <i class="fa fa-dot-circle-o"></i> 保存
-                            </button>
-                        </div>
-                    </div>
+
+                    <!-- USER DATA-->
+
+                    <!-- END USER DATA-->
 
                 </div>
             </div>
@@ -145,7 +131,7 @@
                     '<ul class="list-unstyled navbar__sub-list js-sub-list">';
                 for (let i = 0; i < firstmMenu.length; i++) {
                     let secondMenu = firstmMenu[i];
-                    list += '<li> <a class="js_test" href="'+ secondMenu["url"] +'">'+ secondMenu["menuName"] +'</a></li>'
+                    list += '<li> <a class="js_test" href="javascript:;" id="'+ secondMenu["menu_id"] +'">'+ secondMenu["menuName"] +'</a></li>'
                 }
                 list += '</ul> </li>';
                 //alert(list);

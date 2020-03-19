@@ -8,7 +8,7 @@ public class Menu {
     private String id;
     private String menuName;
     private String parMenu;
-    private String url;
+    private String menu_id;
     private String logo;
 
     public String getId() {
@@ -35,12 +35,12 @@ public class Menu {
         this.parMenu = parMenu;
     }
 
-    public String getUrl() {
-        return url;
+    public String getMenu_id() {
+        return menu_id;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setMenu_id(String menu_id) {
+        this.menu_id = menu_id;
     }
 
     public String getLogo() {
@@ -57,7 +57,7 @@ public class Menu {
                 "id='" + id + '\'' +
                 ", menuName='" + menuName + '\'' +
                 ", parMenu='" + parMenu + '\'' +
-                ", url='" + url + '\'' +
+                ", menu_id='" + menu_id + '\'' +
                 ", logo='" + logo + '\'' +
                 '}';
     }
