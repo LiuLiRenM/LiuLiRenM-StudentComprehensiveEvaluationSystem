@@ -1609,16 +1609,13 @@
       //let id = $(this).attr("id");
       switch ($(this).attr("id")) {
         case "collegeInfoManage":
-          $.post("/menus/collegeManage.do", function (data) {
-            //alert("test");
-            $("#content").html(data);
-          });
+          send("/menus/collegeManage.do");
           break;
         case "professionInfoManage":
-          $.post("/menus/professionManage.do", function (data) {
-            $("#content").html(data);
-          });
+          send("/menus/professionManage.do");
           break;
+        case "evaluationManage":
+          send("/menus/evaluationManage.do");
       }
 
     });
@@ -1636,10 +1633,11 @@
     });
     $("#content").on("click", "#submitPro", function () {
 
-      let id = $("#exampleInputName1 option:selected").attr("id");
+      let id = $("#exampleInputName1 option:selected").val();
       //alert(id);
       let professionName = $("#exampleInputName").val();
-      if ("undefined" == typeof(id)) {
+      //alert(id);
+      if ("请选择系别" === id) {
         alert("请先选择所属系别");
       } else if ("" === professionName) {
         alert("专业名称不能为空!");
@@ -1650,6 +1648,33 @@
       }
     });
 
+    $("#content").on("click", "#evaluation", function () {
+      let evaluationNamme = $("#evaluationName").val();
+      let score = $("#score").val();
+      let id = $("#evaluationType option:selected").val();
+      if ("请选择类型" === id) {
+        alert("请先选择类型!");
+      } else if (evaluationNamme === "" || score === "") {
+        alert("请补充完整信息!");
+      } else {
+        $.post("/menus/saveEvaluationItem.do", {evaluationNamme:evaluationNamme, score:score, id:id}, function (data) {
+          if ("保存失败" === data){
+            alert(data);
+          } else {
+            $("#content").html(data);
+          }
+        })
+      }
+    });
+
+    $("#content").on("click", "#edit", function () {
+
+    });
+    function send(id) {
+      $.post(id, function (data) {
+        $("#content").html(data);
+      });
+    }
 
   } catch (error) {
     console.log(error);
