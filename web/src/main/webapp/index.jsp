@@ -39,6 +39,7 @@
 
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
+    <link href="css/style.css" rel="stylesheet" media="all">
 
     <title>首页</title>
 
@@ -46,6 +47,7 @@
 
 </head>
 <body>
+
 <div class="page-wrapper">
     <!-- MENU SIDEBAR-->
     <aside class="menu-sidebar d-none d-lg-block">
@@ -67,126 +69,61 @@
     <!-- PAGE CONTAINER-->
     <div class="page-container">
 
+
         <%--HEADER--%>
         <jsp:include page="header.jsp"/>
 
-        <!-- MAIN CONTENT-->
+        <%--MAIN CONTENT--%>
         <div class="main-content">
             <div class="section__content section__content--p30">
                 <div class="container-fluid" id="content">
 
-                    <div class="card">
-                        <div class="card-header">
-                            <strong>添加学生信息</strong>
+                    <%--主体界面--%>
+                        <div class="clock">
+                            <div class="flip">
+                                <div class="digital front" data-number="0"></div>
+                                <div class="digital back" data-number="1"></div>
+                            </div>
+                            <div class="flip">
+                                <div class="digital front" data-number="0"></div>
+                                <div class="digital back" data-number="1"></div>
+                            </div>
+                            <em class="divider">:</em>
+                            <div class="flip">
+                                <div class="digital front" data-number="0"></div>
+                                <div class="digital back" data-number="1"></div>
+                            </div>
+                            <div class="flip">
+                                <div class="digital front" data-number="0"></div>
+                                <div class="digital back" data-number="1"></div>
+                            </div>
+                            <em class="divider">:</em>
+                            <div class="flip">
+                                <div class="digital front" data-number="0"></div>
+                                <div class="digital back" data-number="1"></div>
+                            </div>
+                            <div class="flip">
+                                <div class="digital front" data-number="0"></div>
+                                <div class="digital back" data-number="1"></div>
+                            </div>
                         </div>
-                        <div class="card-body card-block">
-                            <form action="${pageContext.request.contextPath}/index.jsp" method="post" class="form-group">
-                                <div class="form-group">
-                                    <label for="studentName" class="pr-1  form-control-label">学生姓名</label>
-                                    <input type="text" id="studentName"  required="required" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="studentEmail" class="px-1  form-control-label">Email</label>
-                                    <input type="email" id="studentEmail"  required="required" class="form-control">
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-sm">
-                                    <i class="fa fa-dot-circle-o"></i> Submit
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <strong>添加专业信息</strong>
-                        </div>
-                        <div class="card-body card-block">
-                            <form action="/menus/saveProfessionName.do" method="post" class="form-inline">
-                                <div class="form-group">
-                                    <label for="professionName" class="pr-1  form-control-label">专业名称</label>
-                                    <input type="text" id="professionName"  name="professionName" required="required" class="form-control">
-                                </div>
-                                <span>&nbsp;&nbsp;&nbsp;</span>
-                                <label for="collegeName" class="pr-1  form-control-label">所属系别</label>
-                                <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
-                                    <select class="js-select2" name="property">
-                                        <option selected="selected">请选择系别</option>
-                                        <option value="">Products</option>
-                                        <option value="">Services</option>
-                                    </select>
-                                    <div class="dropDownSelect2"></div>
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-sm">
-                                    <i class="fa fa-dot-circle-o"></i> 保存
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <strong>综合测评项管理</strong>
-                        </div>
-                        <div class="card-body card-block">
-                            <form action="${pageContext.request.contextPath}/index.jsp" method="post" class="form-group">
-                                <div class="form-inline">
-                                    <label for="collegeName" class="pr-1  form-control-label">专业名称</label>
-                                    <input type="text" id="collegeName"  required="required" class="form-control">
-                                </div>
-                                <label for="collegeName" class="pr-1  form-control-label">所属系别:</label>
-                                <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
-                                    <select class="js-select2" name="property">
-                                        <option selected="selected">请选择系别</option>
-                                        <option value="">Products</option>
-                                        <option value="">Services</option>
-                                    </select>
-                                    <div class="dropDownSelect2"></div>
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-sm">
-                                    <i class="fa fa-dot-circle-o"></i> 保存
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <strong>添加系别信息</strong>
-                        </div>
-                        <div class="card-body card-block">
-                            <form action="" method="post" class="form-inline">
-                                <div class="form-group">
-                                    <label for="exampleInputName2" class="pr-1  form-control-label">系别名称</label>
-                                    <input type="text" id="exampleInputName2" placeholder="Jane Doe" required="" class="form-control">
-                                </div>
-                            </form>
-                        </div>
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary btn-sm">
-                                <i class="fa fa-dot-circle-o"></i> 保存
-                            </button>
-
-                        </div>
-                    </div>
                 </div>
-
-                </div>
-
             </div>
-
         </div>
-        <!-- END MAIN CONTENT-->
+        <%--END MAIN CONTENT--%>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="copyright">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="copyright">
 
-                    </div>
                 </div>
             </div>
+        </div>
     </div>
-    <!-- END PAGE CONTAINER-->
 
 </div>
+
+
 <!-- Jquery JS-->
 <script src="vendor/jquery-3.2.1.min.js"></script>
 <!-- Bootstrap JS-->
@@ -210,6 +147,7 @@
 
 <!-- Main JS-->
 <script src="js/main.js"></script>
+<script src="js/script.js"></script>
 
 <script type="text/javascript">
     $(function () {

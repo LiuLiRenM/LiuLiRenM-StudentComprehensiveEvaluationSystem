@@ -1616,6 +1616,10 @@
           break;
         case "evaluationManage":
           send("/menus/evaluationManage.do");
+          break;
+        case "addStudentInfo":
+          send("/menus/addStudentInfo.do");
+          break;
       }
 
     });
@@ -1675,6 +1679,24 @@
         $("#content").html(data);
       });
     }
+
+    $("#content").on("click", "#studentSumbit", function () {
+      //console.log("test");
+      let studentName = $("#studentName").val();
+      let studentId = $("#studentId").val();
+      let beginYear = $("#beginYear").val();
+      let id = $("#classSelect option:selected").val();
+      let sex = $("input:radio:checked").val();
+      console.log(studentName + studentId + beginYear + id + sex);
+      if (studentName === "" || studentId === "" || beginYear === "" || id === "请选择班级") {
+        alert("请将信息补充完整");
+      } else {
+        $.post("/menus/saveStudentInfo.do", {studentName:studentName, studentId:studentId, beginYear:beginYear, id:id, sex:sex}, function (data) {
+          alert(data);
+        })
+      }
+
+    })
 
   } catch (error) {
     console.log(error);

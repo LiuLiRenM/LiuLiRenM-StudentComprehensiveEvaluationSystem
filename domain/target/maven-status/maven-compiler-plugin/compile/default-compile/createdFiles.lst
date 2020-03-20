@@ -1,0 +1,9 @@
+tech/mycps/sces/domain/Class.class
+tech/mycps/sces/domain/College.class
+tech/mycps/sces/domain/Role.class
+tech/mycps/sces/domain/UserInfo.class
+tech/mycps/sces/domain/Menu.class
+tech/mycps/sces/domain/Student.class
+tech/mycps/sces/domain/EvaluationItem.class
+tech/mycps/sces/domain/Permission.class
+tech/mycps/sces/domain/EvaluationType.class

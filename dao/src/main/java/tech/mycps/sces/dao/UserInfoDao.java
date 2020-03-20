@@ -1,9 +1,6 @@
 package tech.mycps.sces.dao;
 
-import org.apache.ibatis.annotations.Many;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import tech.mycps.sces.domain.UserInfo;
 
@@ -26,5 +23,10 @@ public interface UserInfoDao {
     @Select("select * from user")
     public List<UserInfo> findAll();
 
+    @Insert("insert into user (id, username, password, status) values (uuid(), #{username}, #{password}, #{status})")
+    public void insertUserInfo(@Param("username") String username, @Param("password") String password, @Param("status") int status);
+
+    @Select("select id from user where username = #{username}")
+    public String findIdByUsername(String username);
 
 }

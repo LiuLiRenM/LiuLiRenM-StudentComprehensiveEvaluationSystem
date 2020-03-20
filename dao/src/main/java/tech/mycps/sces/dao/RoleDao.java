@@ -26,4 +26,7 @@ public interface RoleDao {
     //查找所有记录
     @Select("select * from role")
     public List<Role> findAll();
+
+    @Select("select id from role where roleName = #{roleName}")
+    public String findIdByRoleName(String roleName);
 }

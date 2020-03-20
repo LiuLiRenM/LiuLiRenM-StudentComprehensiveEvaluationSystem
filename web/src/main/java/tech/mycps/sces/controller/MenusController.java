@@ -6,10 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import tech.mycps.sces.dao.CollegeDao;
-import tech.mycps.sces.dao.EvaluationItemDao;
-import tech.mycps.sces.dao.EvaluationTypeDao;
-import tech.mycps.sces.dao.ProfessionDao;
+import tech.mycps.sces.dao.*;
+import tech.mycps.sces.domain.Class;
 import tech.mycps.sces.domain.College;
 import tech.mycps.sces.domain.EvaluationItem;
 import tech.mycps.sces.domain.EvaluationType;
@@ -28,6 +26,16 @@ public class MenusController {
     EvaluationTypeDao evaluationTypeDao;
     @Autowired
     EvaluationItemDao evaluationItemDao;
+    @Autowired
+    ClassDao classDao;
+    @Autowired
+    StudentDao studentDao;
+    @Autowired
+    RoleDao roleDao;
+    @Autowired
+    UserInfoDao userInfoDao;
+    @Autowired
+    UserRoleDao userRoleDao;
 
     @RequestMapping(value = "/collegeManage.do", produces = "text/html;charset=UTF-8")
     @ResponseBody
@@ -210,5 +218,81 @@ public class MenusController {
                     "                                    <tr class=\"spacer\"></tr>";
         }
         return s;
+    }
+
+    @RequestMapping(value = "/addStudentInfo.do", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String addStudentInfo() {
+        String s = "<div class=\"card\">\n" +
+                "                        <div class=\"card-header\">\n" +
+                "                            <strong>添加学生信息</strong>\n" +
+                "                        </div>\n" +
+                "                        <div class=\"card-body card-block\">\n" +
+                "                            <form action=\"\" method=\"post\" class=\"form-group\">\n" +
+                "                                <div class=\"form-group\">\n" +
+                "                                    <label for=\"studentName\" class=\"pr-1  form-control-label\">学生姓名</label>\n" +
+                "                                    <input type=\"text\" id=\"studentName\"  required=\"required\" class=\"form-control\">\n" +
+                "                                </div>\n" +
+                "                                <div class=\"form-group\">\n" +
+                "                                    <label for=\"studentId\" class=\"px-1  form-control-label\">学生学号</label>\n" +
+                "                                    <input type=\"text\" id=\"studentId\"  required=\"required\" class=\"form-control\">\n" +
+                "                                </div>\n" +
+                "                                <div class=\"form-group\">\n" +
+                "                                    <label for=\"studentId\" class=\"px-1  form-control-label\">入学年份(如：2016)</label>\n" +
+                "                                    <input type=\"text\" id=\"beginYear\"  required=\"required\" class=\"form-control\">\n" +
+                "                                </div>\n" +
+                "                                <label for=\"classSelect\" class=\"pr-1  form-control-label\">所属班级</label>\n" +
+                "                                <div class=\"rs-select2--dark rs-select2--md m-r-10 rs-select2--border\" >\n" +
+                "                                    <select class=\"js-select2\" name=\"property\" id=\"classSelect\">\n" +
+                "                                        <option selected=\"selected\">请选择班级</option>";
+        List<Class> classes = classDao.findAll();
+        for (Class c:
+            classes){
+            s += "<option value=\""+ c.getId() +"\">"+ c.getName() +"</option>";
+        }
+        s += "</select>\n" +
+                "                                    <div class=\"dropDownSelect2\"></div>\n" +
+                "                                </div>\n" +
+                "                                <div class=\"row form-group\">\n" +
+                "                                    <div class=\"col col-md-3\">\n" +
+                "                                        <label class=\" form-control-label\">性别</label>\n" +
+                "                                    </div>\n" +
+                "                                    <div class=\"col col-md-9\">\n" +
+                "                                        <div class=\"form-check-inline form-check\">\n" +
+                "                                            <label for=\"inline-radio1\" class=\"form-check-label \">\n" +
+                "                                                <input type=\"radio\" id=\"inline-radio1\" name=\"inline-radios\" checked=\"checked\" value=\"男\" class=\"form-check-input\">男\n" +
+                "                                            </label>\n" +
+                "                                            <label for=\"inline-radio2\" class=\"form-check-label \">\n" +
+                "                                                <input type=\"radio\" id=\"inline-radio2\" name=\"inline-radios\" value=\"女\" class=\"form-check-input\">女\n" +
+                "                                            </label>\n" +
+                "                                        </div>\n" +
+                "                                    </div>\n" +
+                "                                </div>\n" +
+                "                            </form>\n" +
+                "                        </div>\n" +
+                "                        <div class=\"card-footer\">\n" +
+                "                            <button type=\"submit\" class=\"btn btn-primary btn-sm\" id=\"studentSumbit\">\n" +
+                "                                <i class=\"fa fa-dot-circle-o\"></i> 保存\n" +
+                "                            </button>\n" +
+                "                        </div>\n" +
+                "                    </div>";
+        return s;
+    }
+
+    @RequestMapping(value = "/saveStudentInfo.do", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String saveStudentInfo(String studentName, String studentId, String beginYear, String id, String sex) {
+        String password = studentId.substring(4);
+        try {
+            studentDao.insertStudentInfo(studentId, studentName, sex, Integer.parseInt(id), Integer.parseInt(beginYear));
+            userInfoDao.insertUserInfo(studentId, password, 1);
+            String userId = userInfoDao.findIdByUsername(studentId);
+            String roleId = roleDao.findIdByRoleName("STUDENT");
+            userRoleDao.insertUserRole(userId, roleId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "保存失败!";
+        }
+        return "保存成功!";
     }
 }
