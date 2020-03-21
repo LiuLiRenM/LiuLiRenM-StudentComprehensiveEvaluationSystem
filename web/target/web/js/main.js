@@ -1606,7 +1606,7 @@
 
     });*/
     $("#sidebar").on("click",".js_test", function () {
-      //let id = $(this).attr("id");
+
       switch ($(this).attr("id")) {
         case "collegeInfoManage":
           send("/menus/collegeManage.do");
@@ -1625,6 +1625,12 @@
           break;
         case "updateStudentInfo":
           send("/menus/updateStudentInfo.do");
+          break;
+        case "checkPersonalInfo1":
+          checkAndUpdate("/menus/checkStudentInfos.do");
+          break;
+        case "updatePersonalInfo1":
+          checkAndUpdate("/menus/updateStudentInfos.do");
           break;
       }
 
@@ -1687,6 +1693,13 @@
       });
     }
 
+    function checkAndUpdate(path) {
+      let studentId = $("#username_header").text();
+      $.post(path, {studentId:studentId}, function (data) {
+        $("#content").html(data);
+      });
+    };
+
     $("#content").on("click", "#studentSumbit", function () {
       //console.log("test");
       let studentName = $("#studentName").val();
@@ -1710,10 +1723,10 @@
       //console.log(s_Id);
       //alert(s_Id);
       $.post("/menus/checkStudentInfos.do", {studentId:s_id}, function (data) {
-        if (data.error !== "") {
-          alert(data.error);
+        if (data === "查询失败，没有此学号的学生") {
+          alert(data);
         } else {
-          let s = '<div class="col-lg-6">\n' +
+          /*let s = '<div class="col-lg-6">\n' +
               '                            <div class="card">\n' +
               '                                <div class="card-header">\n' +
               '                                    <strong>学生信息</strong>\n' +
@@ -1760,8 +1773,8 @@
               '                                    </div>\n' +
               '                                </div>\n' +
               '                            </div>\n' +
-              '                        </div>';
-          $("#content").html(s);
+              '                        </div>';*/
+          $("#content").html(data);
 
         }
       })
@@ -1770,10 +1783,10 @@
     $("#content").on("click", "#updateStudent", function () {
       let s_id = $("#updateStudentInfo1").val();
       $.post("/menus/updateStudentInfos.do", {studentId:s_id}, function (data) {
-        if (data.error !== "") {
-          alert(data.error);
+        if (data === "查询失败，没有此学号的学生") {
+          alert(data);
         } else {
-          let s = '<div class="col-lg-6">\n' +
+          /*let s = '<div class="col-lg-6">\n' +
               '                            <div class="card">\n' +
               '                                <div class="card-header">\n' +
               '                                    <strong>学生信息</strong>\n' +
@@ -1825,8 +1838,8 @@
               '                                    </button>\n' +
               '                                </div>\n' +
               '                            </div>\n' +
-              '                        </div>';
-          $("#content").html(s);
+              '                        </div>';*/
+          $("#content").html(data);
         }
       })
     });

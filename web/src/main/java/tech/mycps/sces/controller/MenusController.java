@@ -320,11 +320,64 @@ public class MenusController {
         return s;
     }
 
-    @RequestMapping(value = "/checkStudentInfos.do")
+    @RequestMapping(value = "/checkStudentInfos.do", produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public  Map<String, String> checkStudentInfos(String studentId) {
+    public  String checkStudentInfos(String studentId) {
+        Map<String, String> map = findStudentInfo(studentId);
+        if (map.get("error") != null && map.get("error").length() != 0 ) {
+            return map.get("error");
+        } else {
+            String s = "<div class=\"col-lg-6\">\n" +
+                    "                            <div class=\"card\">\n" +
+                    "                                <div class=\"card-header\">\n" +
+                    "                                    <strong>学生信息</strong>\n" +
+                    "                                </div>\n" +
+                    "                                <div class=\"card-body card-block\">\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"studentInfo_name\" class=\" form-control-label\">姓名</label>\n" +
+                    "                                        <input type=\"text\" id=\"studentInfo_name\" value=\""+ map.get("studnetName") +"\" class=\"form-control\" readonly=\"readonly\">\n" +
+                    "                                    </div>\n" +
+                    "\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"studentInfo_id\" class=\" form-control-label\">学号</label>\n" +
+                    "                                        <input type=\"text\" id=\"studentInfo_id\" value=\""+ map.get("studentId") +"\" class=\"form-control\" readonly=\"readonly\">\n" +
+                    "                                    </div>\n" +
+                    "                                    <div class=\"row form-group\">\n" +
+                    "                                        <div class=\"col-8\">\n" +
+                    "                                            <div class=\"form-group\">\n" +
+                    "                                                <label for=\"studentInfo_sex\" class=\" form-control-label\">性别</label>\n" +
+                    "                                                <input type=\"text\" id=\"studentInfo_sex\" value=\""+ map.get("sex") +"\" class=\"form-control\" readonly=\"readonly\">\n" +
+                    "                                            </div>\n" +
+                    "                                        </div>\n" +
+                    "                                        <div class=\"col-8\">\n" +
+                    "                                            <div class=\"form-group\">\n" +
+                    "                                                <label for=\"studentInfo_beginYear\" class=\" form-control-label\">入学年份</label>\n" +
+                    "                                                <input type=\"text\" id=\"studentInfo_beginYear\" value=\""+ map.get("beginYear") +"\" class=\"form-control\" readonly=\"readonly\">\n" +
+                    "                                            </div>\n" +
+                    "                                        </div>\n" +
+                    "                                    </div>\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"studentInfo_class\" class=\" form-control-label\">班级</label>\n" +
+                    "                                        <input type=\"text\" id=\"studentInfo_class\" value=\""+ map.get("className") +"\" class=\"form-control\" readonly=\"readonly\">\n" +
+                    "                                    </div>\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"studentInfo_profession\" class=\" form-control-label\">专业</label>\n" +
+                    "                                        <input type=\"text\" id=\"studentInfo_profession\" value=\""+ map.get("professionName") +"\" class=\"form-control\" readonly=\"readonly\">\n" +
+                    "                                    </div>\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"studentInfo_college\" class=\" form-control-label\">学院</label>\n" +
+                    "                                        <input type=\"text\" id=\"studentInfo_college\" value=\""+ map.get("collegName") +"\" class=\"form-control\" readonly=\"readonly\">\n" +
+                    "                                    </div>\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"studentInfo_email\" class=\" form-control-label\">Email</label>\n" +
+                    "                                        <input type=\"text\" id=\"studentInfo_email\" value=\""+ map.get("email") +"\" class=\"form-control\" readonly=\"readonly\">\n" +
+                    "                                    </div>\n" +
+                    "                                </div>\n" +
+                    "                            </div>\n" +
+                    "                        </div>";
+            return s;
+        }
 
-        return findStudentInfo(studentId);
     }
 
     private Map<String, String> findStudentInfo(String studentId) {
@@ -379,10 +432,68 @@ public class MenusController {
         return s;
     }
 
-    @RequestMapping("/updateStudentInfos.do")
+    @RequestMapping(value = "/updateStudentInfos.do", produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public Map<String, String> updateStudentInfos(String studentId) {
-        return findStudentInfo(studentId);
+    public String updateStudentInfos(String studentId) {
+        Map<String, String> map = findStudentInfo(studentId);
+        if (map.get("error") != null && map.get("error").length() != 0) {
+            return map.get("error");
+        } else {
+            String s = "<div class=\"col-lg-6\">\n" +
+                    "                            <div class=\"card\">\n" +
+                    "                                <div class=\"card-header\">\n" +
+                    "                                    <strong>学生信息</strong>\n" +
+                    "                                </div>\n" +
+                    "                                <div class=\"card-body card-block\">\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"updatestudentInfo_name\" class=\" form-control-label\">姓名</label>\n" +
+                    "                                        <input type=\"text\" id=\"updatestudentInfo_name\" value=\""+ map.get("studnetName") +"\" class=\"form-control\" >\n" +
+                    "                                    </div>\n" +
+                    "\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"updatestudentInfo_id\" class=\" form-control-label\">学号</label>\n" +
+                    "                                        <input type=\"text\" id=\"updatestudentInfo_id\" value=\""+ map.get("studentId") +"\" class=\"form-control\" readonly=\"readonly\">\n" +
+                    "                                    </div>\n" +
+                    "                                    <div class=\"row form-group\">\n" +
+                    "                                        <div class=\"col-8\">\n" +
+                    "                                            <div class=\"form-group\">\n" +
+                    "                                                <label for=\"updatestudentInfo_sex\" class=\" form-control-label\">性别</label>\n" +
+                    "                                                <input type=\"text\" id=\"updatestudentInfo_sex\" value=\""+ map.get("sex") +"\" class=\"form-control\" >\n" +
+                    "                                            </div>\n" +
+                    "                                        </div>\n" +
+                    "                                        <div class=\"col-8\">\n" +
+                    "                                            <div class=\"form-group\">\n" +
+                    "                                                <label for=\"updatestudentInfo_beginYear\" class=\" form-control-label\">入学年份</label>\n" +
+                    "                                                <input type=\"text\" id=\"updatestudentInfo_beginYear\" value=\""+ map.get("beginYear") +"\" class=\"form-control\" readonly=\"readonly\">\n" +
+                    "                                            </div>\n" +
+                    "                                        </div>\n" +
+                    "                                    </div>\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"updatestudentInfo_class\" class=\" form-control-label\">班级</label>\n" +
+                    "                                        <input type=\"text\" id=\"updatestudentInfo_class\" value=\""+ map.get("className") +"\" class=\"form-control\" readonly=\"readonly\">\n" +
+                    "                                    </div>\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"updatestudentInfo_profession\" class=\" form-control-label\">专业</label>\n" +
+                    "                                        <input type=\"text\" id=\"updatestudentInfo_profession\" value=\""+ map.get("professionName") +"\" class=\"form-control\" readonly=\"readonly\">\n" +
+                    "                                    </div>\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"updatestudentInfo_college\" class=\" form-control-label\">学院</label>\n" +
+                    "                                        <input type=\"text\" id=\"updatestudentInfo_college\" value=\""+ map.get("collegName") +"\" class=\"form-control\" readonly=\"readonly\">\n" +
+                    "                                    </div>\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"updatestudentInfo_email\" class=\" form-control-label\">Email</label>\n" +
+                    "                                        <input type=\"text\" id=\"updatestudentInfo_email\" value=\""+ map.get("email") +"\" class=\"form-control\" >\n" +
+                    "                                    </div>\n" +
+                    "                                </div>\n" +
+                    "                                <div class=\"card-footer\">\n" +
+                    "                                    <button type=\"submit\" class=\"btn btn-primary btn-sm\" id=\"updateStudentInfo\">\n" +
+                    "                                        <i class=\"fa fa-dot-circle-o\"></i> 提交修改\n" +
+                    "                                    </button>\n" +
+                    "                                </div>\n" +
+                    "                            </div>\n" +
+                    "                        </div>";
+            return s;
+        }
     }
 
     @RequestMapping(value = "/updateInfo.do", produces = "text/html;charset=UTF-8")
