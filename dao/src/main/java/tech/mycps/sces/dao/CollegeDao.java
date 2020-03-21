@@ -15,4 +15,7 @@ public interface CollegeDao {
 
     @Select("select * from college")
     public List<College> findAll();
+
+    @Select("select * from college where id = #{id}")
+    public College findById(int id);
 }

@@ -1620,12 +1620,19 @@
         case "addStudentInfo":
           send("/menus/addStudentInfo.do");
           break;
+        case "checkStudentInfo":
+          send("/menus/checkStudentInfo.do");
+          break;
+        case "updateStudentInfo":
+          send("/menus/updateStudentInfo.do");
+          break;
       }
 
     });
     $("#content").on("click", "#submit", function () {
       //console.log("test");
       let collegeName = $("#exampleInputName2").val();
+      //console.log(collegeName);
       if ("" === collegeName) {
         alert("系别名称不能为空!");
       } else {
@@ -1695,8 +1702,70 @@
           alert(data);
         })
       }
+    });
 
-    })
+    $("#content").on("click", "#checkStudent", function () {
+      //console.log("test");
+      let s_id = $("#checkStudentInfo1").val();
+      //console.log(s_Id);
+      //alert(s_Id);
+      $.post("/menus/checkStudentInfos.do", {studentId:s_id}, function (data) {
+        if (data.error !== "") {
+          alert(data.error);
+        } else {
+          let s = '<div class="col-lg-6">\n' +
+              '                            <div class="card">\n' +
+              '                                <div class="card-header">\n' +
+              '                                    <strong>学生信息</strong>\n' +
+              '                                </div>\n' +
+              '                                <div class="card-body card-block">\n' +
+              '                                    <div class="form-group">\n' +
+              '                                        <label for="studentInfo_name" class=" form-control-label">姓名</label>\n' +
+              '                                        <input type="text" id="studentInfo_name" value="'+ data.studnetName +'" class="form-control" readonly="readonly">\n' +
+              '                                    </div>\n' +
+              '\n' +
+              '                                    <div class="form-group">\n' +
+              '                                        <label for="studentInfo_id" class=" form-control-label">学号</label>\n' +
+              '                                        <input type="text" id="studentInfo_id" value="'+ data.studentId +'" class="form-control" readonly="readonly">\n' +
+              '                                    </div>\n' +
+              '                                    <div class="row form-group">\n' +
+              '                                        <div class="col-8">\n' +
+              '                                            <div class="form-group">\n' +
+              '                                                <label for="studentInfo_sex" class=" form-control-label">性别</label>\n' +
+              '                                                <input type="text" id="studentInfo_sex" value="'+ data.sex +'" class="form-control" readonly="readonly">\n' +
+              '                                            </div>\n' +
+              '                                        </div>\n' +
+              '                                        <div class="col-8">\n' +
+              '                                            <div class="form-group">\n' +
+              '                                                <label for="studentInfo_beginYear" class=" form-control-label">入学年份</label>\n' +
+              '                                                <input type="text" id="studentInfo_beginYear" value="'+ data.beginYear +'年" class="form-control" readonly="readonly">\n' +
+              '                                            </div>\n' +
+              '                                        </div>\n' +
+              '                                    </div>\n' +
+              '                                    <div class="form-group">\n' +
+              '                                        <label for="studentInfo_class" class=" form-control-label">班级</label>\n' +
+              '                                        <input type="text" id="studentInfo_class" value="'+ data.className +'" class="form-control" readonly="readonly">\n' +
+              '                                    </div>\n' +
+              '                                    <div class="form-group">\n' +
+              '                                        <label for="studentInfo_profession" class=" form-control-label">专业</label>\n' +
+              '                                        <input type="text" id="studentInfo_profession" value="'+ data.professionName +'" class="form-control" readonly="readonly">\n' +
+              '                                    </div>\n' +
+              '                                    <div class="form-group">\n' +
+              '                                        <label for="studentInfo_college" class=" form-control-label">学院</label>\n' +
+              '                                        <input type="text" id="studentInfo_college" value="'+ data.collegName +'" class="form-control" readonly="readonly">\n' +
+              '                                    </div>\n' +
+              '                                    <div class="form-group">\n' +
+              '                                        <label for="studentInfo_email" class=" form-control-label">Email</label>\n' +
+              '                                        <input type="text" id="studentInfo_email" value="'+ data.email +'" class="form-control" readonly="readonly">\n' +
+              '                                    </div>\n' +
+              '                                </div>\n' +
+              '                            </div>\n' +
+              '                        </div>';
+          $("#content").html(s);
+
+        }
+      })
+    });
 
   } catch (error) {
     console.log(error);

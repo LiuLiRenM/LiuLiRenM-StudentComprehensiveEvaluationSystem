@@ -139,7 +139,7 @@
                                 <img src="${pageContext.request.contextPath}/images/icons/administrator.png" alt="John Doe" />
                             </div>
                             <div class="content">
-                                <a class="js-acc-btn" href="#"><security:authentication property="principal.username"></security:authentication></a>
+                                <a class="js-acc-btn" href="#" id="username_header"><security:authentication property="principal.username"/></a>
                             </div>
                             <div class="account-dropdown js-dropdown">
                                 <div class="info clearfix">

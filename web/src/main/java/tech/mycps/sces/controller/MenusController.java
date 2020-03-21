@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import tech.mycps.sces.dao.*;
+import tech.mycps.sces.domain.*;
 import tech.mycps.sces.domain.Class;
-import tech.mycps.sces.domain.College;
-import tech.mycps.sces.domain.EvaluationItem;
-import tech.mycps.sces.domain.EvaluationType;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/menus")
@@ -294,5 +294,60 @@ public class MenusController {
             return "保存失败!";
         }
         return "保存成功!";
+    }
+
+    @RequestMapping(value = "/checkStudentInfo.do", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String checkStudentInfo(String studentId) {
+        String s = "<div class=\"card\">\n" +
+                "                        <div class=\"card-header\">\n" +
+                "                            <strong>查看学生信息</strong>\n" +
+                "                        </div>\n" +
+                "                        <div class=\"card-body card-block\">\n" +
+                "                            <form action=\"\" method=\"post\" class=\"form-inline\">\n" +
+                "                                <div class=\"form-group\">\n" +
+                "                                    <label for=\"checkStudentInfo1\" class=\"pr-1  form-control-label\">请输入要查询的学生的学号：</label>\n" +
+                "                                    <input type=\"text\" id=\"checkStudentInfo1\" required=\"\" class=\"form-control\" name=\"checkStudentInfo1\">\n" +
+                "                                </div>\n" +
+                "                            </form>\n" +
+                "                        </div>\n" +
+                "                        <div class=\"card-footer\">\n" +
+                "                            <button type=\"submit\" class=\"btn btn-primary btn-sm\" id=\"checkStudent\">\n" +
+                "                                <i class=\"fa fa-dot-circle-o\"></i> 查询\n" +
+                "                            </button>\n" +
+                "                        </div>\n" +
+                "                    </div>";
+        return s;
+    }
+
+    @RequestMapping(value = "/checkStudentInfos.do")
+    @ResponseBody
+    public  Map<String, String> checkStudentInfos(String studentId) {
+        Map<String, String> map = new HashMap<String, String>();
+        Student student = studentDao.findStudentByStudentId(studentId);
+        if (student != null) {
+            String studentName = student.getName();
+            String email = student.getEmail();
+            String sex = student.getSex();
+            int classId = student.getClassId();
+            int beginYear = student.getBeginYear();
+            Class c = classDao.findById(classId);
+            College college = collegeDao.findById(c.getCollegeId());
+            Profession profession = professionDao.findById(c.getProfessionId());
+            map.put("studentId", studentId);
+            map.put("studnetName", studentName);
+            map.put("email", email);
+            map.put("sex", sex);
+            map.put("beginYear", String.valueOf(beginYear));
+            map.put("className", c.getName());
+            map.put("collegName", college.getName());
+            map.put("professionName", profession.getName());
+            map.put("error", "");
+            return map;
+        } else {
+            map.put("error", "查询失败，没有此学号的学生");
+            return map;
+        }
+
     }
 }

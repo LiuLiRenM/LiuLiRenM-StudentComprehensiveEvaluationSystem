@@ -3,7 +3,7 @@ package tech.mycps.sces.domain;
 public class Student {
 
     private int id;
-    private int userId;
+    private String userId;
     private String name;
     private String sex;
     private int classId;
@@ -20,11 +20,11 @@ public class Student {
         this.id = id;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -88,7 +88,7 @@ public class Student {
     public String toString() {
         return "Student{" +
                 "id=" + id +
-                ", userId=" + userId +
+                ", userId='" + userId + '\'' +
                 ", name='" + name + '\'' +
                 ", sex='" + sex + '\'' +
                 ", classId=" + classId +

@@ -73,19 +73,19 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <strong>添加系别信息</strong>
+                            <strong>查看学生信息信息</strong>
                         </div>
                         <div class="card-body card-block">
                             <form action="" method="post" class="form-inline">
                                 <div class="form-group">
-                                    <label for="exampleInputName2" class="pr-1  form-control-label">系别名称：</label>
-                                    <input type="text" id="exampleInputName2" required="" class="form-control" name="collegeName">
+                                    <label for="checkStudentInfo" class="pr-1  form-control-label">请输入要查询的学生的学号：</label>
+                                    <input type="text" id="checkStudentInfo" required="" class="form-control" name="checkStudentInfo">
                                 </div>
                             </form>
                         </div>
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary btn-sm" id="submit2">
-                                <i class="fa fa-dot-circle-o"></i> 保存
+                            <button type="submit" class="btn btn-primary btn-sm" id="check">
+                                <i class="fa fa-dot-circle-o"></i> 查询
                             </button>
                         </div>
                     </div>

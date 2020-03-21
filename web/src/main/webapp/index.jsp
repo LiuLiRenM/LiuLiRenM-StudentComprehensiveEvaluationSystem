@@ -79,7 +79,7 @@
                 <div class="container-fluid" id="content">
 
                     <%--主体界面--%>
-                        <div class="clock">
+                    <div class="clock">
                             <div class="flip">
                                 <div class="digital front" data-number="0"></div>
                                 <div class="digital back" data-number="1"></div>
@@ -107,6 +107,9 @@
                                 <div class="digital back" data-number="1"></div>
                             </div>
                         </div>
+
+
+
                 </div>
             </div>
         </div>
