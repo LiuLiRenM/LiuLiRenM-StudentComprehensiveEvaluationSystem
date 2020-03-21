@@ -3,6 +3,7 @@ package tech.mycps.sces.dao;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 import tech.mycps.sces.domain.Student;
 
@@ -15,4 +16,6 @@ public interface StudentDao {
     @Select("select * from student where userId = #{studentId}")
     public Student findStudentByStudentId(String studentId);
 
+    @Update("update student set name = #{name}, sex = #{sex}, email = #{email} where userId = #{id}")
+    public void updateStudentInfo(@Param("id") String id, @Param("name") String name, @Param("sex") String sex, @Param("email") String email);
 }

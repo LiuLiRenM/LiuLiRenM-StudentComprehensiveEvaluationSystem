@@ -108,7 +108,59 @@
                             </div>
                         </div>
 
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <strong>学生信息</strong>
+                                </div>
+                                <div class="card-body card-block">
+                                    <div class="form-group">
+                                        <label for="updatestudentInfo_name" class=" form-control-label">姓名</label>
+                                        <input type="text" id="updatestudentInfo_name" value="" class="form-control" >
+                                    </div>
 
+                                    <div class="form-group">
+                                        <label for="updatestudentInfo_id" class=" form-control-label">学号</label>
+                                        <input type="text" id="updatestudentInfo_id" value="" class="form-control" >
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col-8">
+                                            <div class="form-group">
+                                                <label for="updatestudentInfo_sex" class=" form-control-label">性别</label>
+                                                <input type="text" id="updatestudentInfo_sex" value="" class="form-control" >
+                                            </div>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="form-group">
+                                                <label for="updatestudentInfo_beginYear" class=" form-control-label">入学年份</label>
+                                                <input type="text" id="updatestudentInfo_beginYear" value="" class="form-control" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="updatestudentInfo_class" class=" form-control-label">班级</label>
+                                        <input type="text" id="updatestudentInfo_class" value="" class="form-control" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="updatestudentInfo_profession" class=" form-control-label">专业</label>
+                                        <input type="text" id="updatestudentInfo_profession" value="" class="form-control" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="updatestudentInfo_college" class=" form-control-label">学院</label>
+                                        <input type="text" id="updatestudentInfo_college" value="" class="form-control" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="updatestudentInfo_email" class=" form-control-label">Email</label>
+                                        <input type="text" id="updatestudentInfo_email" value="" class="form-control" >
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary btn-sm" id="updateStudentInfo">
+                                        <i class="fa fa-dot-circle-o"></i> 提交修改
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
 
                 </div>
             </div>

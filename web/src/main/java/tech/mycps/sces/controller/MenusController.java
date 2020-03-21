@@ -298,7 +298,7 @@ public class MenusController {
 
     @RequestMapping(value = "/checkStudentInfo.do", produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String checkStudentInfo(String studentId) {
+    public String checkStudentInfo() {
         String s = "<div class=\"card\">\n" +
                 "                        <div class=\"card-header\">\n" +
                 "                            <strong>查看学生信息</strong>\n" +
@@ -323,6 +323,11 @@ public class MenusController {
     @RequestMapping(value = "/checkStudentInfos.do")
     @ResponseBody
     public  Map<String, String> checkStudentInfos(String studentId) {
+
+        return findStudentInfo(studentId);
+    }
+
+    private Map<String, String> findStudentInfo(String studentId) {
         Map<String, String> map = new HashMap<String, String>();
         Student student = studentDao.findStudentByStudentId(studentId);
         if (student != null) {
@@ -348,6 +353,47 @@ public class MenusController {
             map.put("error", "查询失败，没有此学号的学生");
             return map;
         }
+    }
 
+    @RequestMapping(value = "/updateStudentInfo.do", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String updateStudentInfo() {
+        String s = "<div class=\"card\">\n" +
+                "                        <div class=\"card-header\">\n" +
+                "                            <strong>修改学生信息</strong>\n" +
+                "                        </div>\n" +
+                "                        <div class=\"card-body card-block\">\n" +
+                "                            <form action=\"\" method=\"post\" class=\"form-inline\">\n" +
+                "                                <div class=\"form-group\">\n" +
+                "                                    <label for=\"updateStudentInfo1\" class=\"pr-1  form-control-label\">请输入要修改学生信息的学生学号：</label>\n" +
+                "                                    <input type=\"text\" id=\"updateStudentInfo1\" required=\"\" class=\"form-control\" name=\"updateStudentInfo1\">\n" +
+                "                                </div>\n" +
+                "                            </form>\n" +
+                "                        </div>\n" +
+                "                        <div class=\"card-footer\">\n" +
+                "                            <button type=\"submit\" class=\"btn btn-primary btn-sm\" id=\"updateStudent\">\n" +
+                "                                <i class=\"fa fa-dot-circle-o\"></i> 查询\n" +
+                "                            </button>\n" +
+                "                        </div>\n" +
+                "                    </div>";
+        return s;
+    }
+
+    @RequestMapping("/updateStudentInfos.do")
+    @ResponseBody
+    public Map<String, String> updateStudentInfos(String studentId) {
+        return findStudentInfo(studentId);
+    }
+
+    @RequestMapping(value = "/updateInfo.do", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String updateInfo(String name, String sex, String email, String id) {
+        try {
+            studentDao.updateStudentInfo(id, name, sex, email);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "保存失败!";
+        }
+        return "保存成功!";
     }
 }

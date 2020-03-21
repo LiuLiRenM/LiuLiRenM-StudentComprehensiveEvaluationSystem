@@ -1767,6 +1767,81 @@
       })
     });
 
+    $("#content").on("click", "#updateStudent", function () {
+      let s_id = $("#updateStudentInfo1").val();
+      $.post("/menus/updateStudentInfos.do", {studentId:s_id}, function (data) {
+        if (data.error !== "") {
+          alert(data.error);
+        } else {
+          let s = '<div class="col-lg-6">\n' +
+              '                            <div class="card">\n' +
+              '                                <div class="card-header">\n' +
+              '                                    <strong>学生信息</strong>\n' +
+              '                                </div>\n' +
+              '                                <div class="card-body card-block">\n' +
+              '                                    <div class="form-group">\n' +
+              '                                        <label for="updatestudentInfo_name" class=" form-control-label">姓名</label>\n' +
+              '                                        <input type="text" id="updatestudentInfo_name" value="'+ data.studnetName +'" class="form-control" >\n' +
+              '                                    </div>\n' +
+              '\n' +
+              '                                    <div class="form-group">\n' +
+              '                                        <label for="updatestudentInfo_id" class=" form-control-label">学号</label>\n' +
+              '                                        <input type="text" id="updatestudentInfo_id" value="'+ data.studentId +'" class="form-control" readonly="readonly">\n' +
+              '                                    </div>\n' +
+              '                                    <div class="row form-group">\n' +
+              '                                        <div class="col-8">\n' +
+              '                                            <div class="form-group">\n' +
+              '                                                <label for="updatestudentInfo_sex" class=" form-control-label">性别</label>\n' +
+              '                                                <input type="text" id="updatestudentInfo_sex" value="'+ data.sex +'" class="form-control" >\n' +
+              '                                            </div>\n' +
+              '                                        </div>\n' +
+              '                                        <div class="col-8">\n' +
+              '                                            <div class="form-group">\n' +
+              '                                                <label for="updatestudentInfo_beginYear" class=" form-control-label">入学年份</label>\n' +
+              '                                                <input type="text" id="updatestudentInfo_beginYear" value="'+ data.beginYear +'年" class="form-control" readonly="readonly">\n' +
+              '                                            </div>\n' +
+              '                                        </div>\n' +
+              '                                    </div>\n' +
+              '                                    <div class="form-group">\n' +
+              '                                        <label for="updatestudentInfo_class" class=" form-control-label">班级</label>\n' +
+              '                                        <input type="text" id="updatestudentInfo_class" value="'+ data.className +'" class="form-control" readonly="readonly">\n' +
+              '                                    </div>\n' +
+              '                                    <div class="form-group">\n' +
+              '                                        <label for="updatestudentInfo_profession" class=" form-control-label">专业</label>\n' +
+              '                                        <input type="text" id="updatestudentInfo_profession" value="'+ data.professionName +'" class="form-control" readonly="readonly">\n' +
+              '                                    </div>\n' +
+              '                                    <div class="form-group">\n' +
+              '                                        <label for="updatestudentInfo_college" class=" form-control-label">学院</label>\n' +
+              '                                        <input type="text" id="updatestudentInfo_college" value="'+ data.collegName +'" class="form-control" readonly="readonly">\n' +
+              '                                    </div>\n' +
+              '                                    <div class="form-group">\n' +
+              '                                        <label for="updatestudentInfo_email" class=" form-control-label">Email</label>\n' +
+              '                                        <input type="email" id="updatestudentInfo_email" value="'+ data.email +'" class="form-control" >\n' +
+              '                                    </div>\n' +
+              '                                </div>\n' +
+              '                                <div class="card-footer">\n' +
+              '                                    <button type="submit" class="btn btn-primary btn-sm" id="updateStudentInfo">\n' +
+              '                                        <i class="fa fa-dot-circle-o"></i> 提交修改\n' +
+              '                                    </button>\n' +
+              '                                </div>\n' +
+              '                            </div>\n' +
+              '                        </div>';
+          $("#content").html(s);
+        }
+      })
+    });
+
+    $("#content").on("click", "#updateStudentInfo", function () {
+      let name = $("#updatestudentInfo_name").val();
+      let sex = $("#updatestudentInfo_sex").val();
+      let email = $("#updatestudentInfo_email").val();
+      let id = $("#updatestudentInfo_id").val();
+
+      $.post("/menus/updateInfo.do", {name:name, sex:sex, email:email, id:id}, function (data) {
+        alert(data);
+      })
+    })
+
   } catch (error) {
     console.log(error);
   }
