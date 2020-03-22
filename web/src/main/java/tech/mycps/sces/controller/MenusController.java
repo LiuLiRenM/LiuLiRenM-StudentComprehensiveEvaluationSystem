@@ -1,5 +1,7 @@
 package tech.mycps.sces.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +38,10 @@ public class MenusController {
     UserInfoDao userInfoDao;
     @Autowired
     UserRoleDao userRoleDao;
+    @Autowired
+    TeacherDao teacherDao;
+    @Autowired
+    TeacherClassDao teacherClassDao;
 
     @RequestMapping(value = "/collegeManage.do", produces = "text/html;charset=UTF-8")
     @ResponseBody
@@ -408,6 +414,30 @@ public class MenusController {
         }
     }
 
+    private Map<String, String> findTeacherInfo(String teacherId) {
+        Map<String, String> map = new HashMap<String, String>();
+        Teacher teacher = teacherDao.findTeacherByTeacherId(teacherId);
+        if (teacher != null) {
+            String teacherName = teacher.getName();
+            String email = teacher.getEmail();
+            String sex = teacher.getSex();
+            int collegeId = teacher.getCollegeId();
+            int age = teacher.getAge();
+            College college = collegeDao.findById(collegeId);
+            map.put("teacherId", teacherId);
+            map.put("teacherName", teacherName);
+            map.put("email", email);
+            map.put("sex", sex);
+            map.put("age", String.valueOf(age));
+            map.put("collegName", college.getName());
+            map.put("error", "");
+            return map;
+        } else {
+            map.put("error", "查询失败，没有此职工号的班主任");
+            return map;
+        }
+    }
+
     @RequestMapping(value = "/updateStudentInfo.do", produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String updateStudentInfo() {
@@ -501,6 +531,279 @@ public class MenusController {
     public String updateInfo(String name, String sex, String email, String id) {
         try {
             studentDao.updateStudentInfo(id, name, sex, email);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "保存失败!";
+        }
+        return "保存成功!";
+    }
+
+    @RequestMapping(value = "/addTeacherInfo.do", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String addTeacherInfo() {
+        String s = "<div class=\"card\">\n" +
+                "                            <div class=\"card-header\">\n" +
+                "                                <strong>添加班主任信息</strong>\n" +
+                "                            </div>\n" +
+                "                            <div class=\"card-body card-block\">\n" +
+                "                                <form action=\"\" method=\"post\" class=\"form-group\">\n" +
+                "                                    <div class=\"form-group\">\n" +
+                "                                        <label for=\"teacherName\" class=\"pr-1  form-control-label\">班主任姓名：</label>\n" +
+                "                                        <input type=\"text\" id=\"teacherName\" required=\"\" class=\"form-control\" name=\"teacherName\">\n" +
+                "                                    </div>\n" +
+                "                                    <div class=\"form-group\">\n" +
+                "                                        <label for=\"teacherId\" class=\"pr-1  form-control-label\">职工号：</label>\n" +
+                "                                        <input type=\"text\" id=\"teacherId\" required=\"\" class=\"form-control\" name=\"teacherId\">\n" +
+                "                                    </div>\n" +
+                "                                    <div class=\"form-group\">\n" +
+                "                                        <label for=\"teacherAge\" class=\"pr-1  form-control-label\">年龄：</label>\n" +
+                "                                        <input type=\"text\" id=\"teacherAge\" required=\"\" class=\"form-control\" name=\"teacherAge\">\n" +
+                "                                    </div>\n" +
+                "                                    <div class=\"form-group\">\n" +
+                "                                        <div class=\"rs-select2--dark rs-select2--md m-r-10 rs-select2--border\">\n" +
+                "                                            <label for=\"teacher_college\" class=\"pr-1  form-control-label\">所属学院：</label>\n" +
+                "                                            <select class=\"js-select2\" name=\"property\" id=\"teacher_college\" >\n" +
+                "                                                <option value=\"\" selected>请选择学院：</option>";
+        List<College> colleges = collegeDao.findAll();
+        for (College college :
+                colleges) {
+            s += "<option value=\""+ college.getId() +"\">"+ college.getName() +"</option>";
+        }
+        s += "</select>\n" +
+                "                                            <div class=\"dropDownSelect2\"></div>\n" +
+                "                                        </div>\n" +
+                "                                    </div>\n" +
+                "                                    <div class=\"form-group\">\n" +
+                "                                        <div class=\"rs-select2--dark rs-select2--md m-r-10 rs-select2--border\">\n" +
+                "                                            <label for=\"teacher_class\" class=\"pr-1  form-control-label\">所带班级：</label>\n" +
+                "                                            <select class=\"js-select2\" name=\"property\" id=\"teacher_class\" multiple>";
+        List<Class> classes = classDao.findAll();
+        for (Class c:
+             classes) {
+            s += "<option id=\"\" value=\""+ c.getId() +"\">"+ c.getName() +"</option>";
+        }
+        s += "</select>\n" +
+                "                                            <div class=\"dropDownSelect2\"></div>\n" +
+                "                                        </div>\n" +
+                "                                    </div>\n" +
+                "                                    <div class=\"row form-group\">\n" +
+                "                                        <div class=\"col col-md-3\">\n" +
+                "                                            <label class=\" form-control-label\">性别</label>\n" +
+                "                                        </div>\n" +
+                "                                        <div class=\"col col-md-9\">\n" +
+                "                                            <div class=\"form-check-inline form-check\">\n" +
+                "                                                <label for=\"inline-radio1\" class=\"form-check-label \">\n" +
+                "                                                    <input type=\"radio\" id=\"inline-radio1\" name=\"inline-radios\" value=\"男\" class=\"form-check-input\" checked>男\n" +
+                "                                                </label>\n" +
+                "                                                <label for=\"inline-radio2\" class=\"form-check-label \">\n" +
+                "                                                    <input type=\"radio\" id=\"inline-radio2\" name=\"inline-radios\" value=\"女\" class=\"form-check-input\">女\n" +
+                "                                                </label>\n" +
+                "\n" +
+                "                                            </div>\n" +
+                "                                        </div>\n" +
+                "                                    </div>\n" +
+                "                                </form>\n" +
+                "                            </div>\n" +
+                "                            <div class=\"card-footer\">\n" +
+                "                                <button type=\"submit\" class=\"btn btn-primary btn-sm\" id=\"addTeacher\">\n" +
+                "                                    <i class=\"fa fa-dot-circle-o\"></i> 保存\n" +
+                "                                </button>\n" +
+                "                            </div>\n" +
+                "                        </div>";
+        return s;
+    }
+
+    @RequestMapping(value = "/saveTeacherInfo.do", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String saveTeacherInfo(String teacher) throws JsonProcessingException {
+        //System.out.println(teacher);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Teacher teacher1 = objectMapper.readValue(teacher, Teacher.class);
+        String username = teacher1.getUserId();
+        String password = username.substring(4);
+        //System.out.println(teacher1);
+        try {
+            userInfoDao.insertUserInfo(username, password, 1);
+            String userId = userInfoDao.findIdByUsername(username);
+            String roleId = roleDao.findIdByRoleName("TEACHER");
+            userRoleDao.insertUserRole(userId, roleId);
+            teacherDao.insertTeacherInfo(username, teacher1.getName(), teacher1.getSex(), teacher1.getAge(), teacher1.getCollegeId(), teacher1.getEmail());
+            int id = teacherDao.findIdByUserId(username);
+            List<String> classes = teacher1.getClasses();
+            for (String s :
+                    classes) {
+                teacherClassDao.insertIntoTeacherClass(id, Integer.parseInt(s));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "保存失败!";
+        }
+        return "保存成功!";
+    }
+
+    @RequestMapping(value = "/checkTeacherInfo.do", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String checkTeacherInfo() {
+
+        String s = "<div class=\"card\">\n" +
+                "                            <div class=\"card-header\">\n" +
+                "                                <strong>查看班主任信息</strong>\n" +
+                "                            </div>\n" +
+                "                            <div class=\"card-body card-block\">\n" +
+                "                                <form action=\"\" method=\"post\" class=\"form-inline\">\n" +
+                "                                    <div class=\"form-group\">\n" +
+                "                                        <label for=\"checkTeacherInfo\" class=\"pr-1  form-control-label\">请输入要查询的班主任的职工号：</label>\n" +
+                "                                        <input type=\"text\" id=\"checkTeacherInfo\" required=\"\" class=\"form-control\" name=\"checkTeacherInfo\">\n" +
+                "                                    </div>\n" +
+                "                                </form>\n" +
+                "                            </div>\n" +
+                "                            <div class=\"card-footer\">\n" +
+                "                                <button type=\"submit\" class=\"btn btn-primary btn-sm\" id=\"checkTeacher\">\n" +
+                "                                    <i class=\"fa fa-dot-circle-o\"></i> 查询\n" +
+                "                                </button>\n" +
+                "                            </div>\n" +
+                "                        </div>";
+        return s;
+    }
+
+    @RequestMapping(value = "/checkTeacherInfos.do", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String checkTeacherInfos(String teacherId) {
+        Map<String, String> map = findTeacherInfo(teacherId);
+        if (map.get("error") != null && map.get("error").length() != 0 ) {
+            return map.get("error");
+        } else {
+            String s = "<div class=\"col-lg-6\">\n" +
+                    "                            <div class=\"card\">\n" +
+                    "                                <div class=\"card-header\">\n" +
+                    "                                    <strong>班主任信息</strong>\n" +
+                    "                                </div>\n" +
+                    "                                <div class=\"card-body card-block\">\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"teacherName\" class=\" form-control-label\">姓名</label>\n" +
+                    "                                        <input type=\"text\" id=\"teacherName\" value=\""+ map.get("teacherName") +"\" class=\"form-control\" readonly>\n" +
+                    "                                    </div>\n" +
+                    "\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"teacherId\" class=\" form-control-label\">职工号</label>\n" +
+                    "                                        <input type=\"text\" id=\"teacherId\" value=\""+ map.get("teacherId") +"\" class=\"form-control\" readonly>\n" +
+                    "                                    </div>\n" +
+                    "                                    <div class=\"row form-group\">\n" +
+                    "                                        <div class=\"col-8\">\n" +
+                    "                                            <div class=\"form-group\">\n" +
+                    "                                                <label for=\"teacherSex\" class=\" form-control-label\">性别</label>\n" +
+                    "                                                <input type=\"text\" id=\"teacherSex\" value=\""+ map.get("sex") +"\" class=\"form-control\" readonly>\n" +
+                    "                                            </div>\n" +
+                    "                                        </div>\n" +
+                    "                                        <div class=\"col-8\">\n" +
+                    "                                            <div class=\"form-group\">\n" +
+                    "                                                <label for=\"teacherAge\" class=\" form-control-label\">年龄</label>\n" +
+                    "                                                <input type=\"text\" id=\"teacherAge\" value=\""+ map.get("age") +"\" class=\"form-control\" readonly>\n" +
+                    "                                            </div>\n" +
+                    "                                        </div>\n" +
+                    "                                    </div>\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"teacherCollege\" class=\" form-control-label\">学院</label>\n" +
+                    "                                        <input type=\"text\" id=\"teacherCollege\" value=\""+ map.get("collegName") +"\" class=\"form-control\" readonly>\n" +
+                    "                                    </div>\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"teacherEmail\" class=\" form-control-label\">Email</label>\n" +
+                    "                                        <input type=\"text\" id=\"teacherEmail\" value=\""+ map.get("email") +"\" class=\"form-control\" readonly>\n" +
+                    "                                    </div>\n" +
+                    "                                </div>\n" +
+                    "                            </div>\n" +
+                    "                        </div>";
+            return s;
+        }
+    }
+
+    @RequestMapping(value = "/updateTeacherInfo.do", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String updateTeacherInfo() {
+        String s = "<div class=\"card\">\n" +
+                "                            <div class=\"card-header\">\n" +
+                "                                <strong>修改班主任信息</strong>\n" +
+                "                            </div>\n" +
+                "                            <div class=\"card-body card-block\">\n" +
+                "                                <form action=\"\" method=\"post\" class=\"form-inline\">\n" +
+                "                                    <div class=\"form-group\">\n" +
+                "                                        <label for=\"updateTeacherInfos\" class=\"pr-1  form-control-label\">请输入要修改信息的班主任的职工号：</label>\n" +
+                "                                        <input type=\"text\" id=\"updateTeacherInfos\" required=\"\" class=\"form-control\" name=\"updateTeacherInfos\">\n" +
+                "                                    </div>\n" +
+                "                                </form>\n" +
+                "                            </div>\n" +
+                "                            <div class=\"card-footer\">\n" +
+                "                                <button type=\"submit\" class=\"btn btn-primary btn-sm\" id=\"updateTeacher\">\n" +
+                "                                    <i class=\"fa fa-dot-circle-o\"></i> 查询\n" +
+                "                                </button>\n" +
+                "                            </div>\n" +
+                "                        </div>";
+        return s;
+    }
+
+    @RequestMapping(value = "/updateTeacherInfos.do", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String updateTeacherInfos(String teacherId) {
+        Map<String, String> map = findTeacherInfo(teacherId);
+        if (map.get("error") != null && map.get("error").length() != 0) {
+            return map.get("error");
+        } else {
+            String s = "<div class=\"col-lg-6\">\n" +
+                    "                            <div class=\"card\">\n" +
+                    "                                <div class=\"card-header\">\n" +
+                    "                                    <strong>班主任信息</strong>\n" +
+                    "                                </div>\n" +
+                    "                                <div class=\"card-body card-block\">\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"teacherName\" class=\" form-control-label\">姓名</label>\n" +
+                    "                                        <input type=\"text\" id=\"teacherName\" value=\""+ map.get("teacherName") +"\" class=\"form-control\">\n" +
+                    "                                    </div>\n" +
+                    "\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"teacherId\" class=\" form-control-label\">职工号</label>\n" +
+                    "                                        <input type=\"text\" id=\"teacherId\" value=\""+ map.get("teacherId") +"\" class=\"form-control\" readonly>\n" +
+                    "                                    </div>\n" +
+                    "                                    <div class=\"row form-group\">\n" +
+                    "                                        <div class=\"col-8\">\n" +
+                    "                                            <div class=\"form-group\">\n" +
+                    "                                                <label for=\"teacherSex\" class=\" form-control-label\">性别</label>\n" +
+                    "                                                <input type=\"text\" id=\"teacherSex\" value=\""+ map.get("sex") +"\" class=\"form-control\">\n" +
+                    "                                            </div>\n" +
+                    "                                        </div>\n" +
+                    "                                        <div class=\"col-8\">\n" +
+                    "                                            <div class=\"form-group\">\n" +
+                    "                                                <label for=\"teacherAge\" class=\" form-control-label\">年龄</label>\n" +
+                    "                                                <input type=\"text\" id=\"teacherAge\" value=\""+ map.get("age") +"\" class=\"form-control\" >\n" +
+                    "                                            </div>\n" +
+                    "                                        </div>\n" +
+                    "                                    </div>\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"updatestudentInfo_college\" class=\" form-control-label\">学院</label>\n" +
+                    "                                        <input type=\"text\" id=\"updatestudentInfo_college\" value=\""+ map.get("collegName") +"\" class=\"form-control\" readonly>\n" +
+                    "                                    </div>\n" +
+                    "                                    <div class=\"form-group\">\n" +
+                    "                                        <label for=\"updatestudentInfo_email\" class=\" form-control-label\">Email</label>\n" +
+                    "                                        <input type=\"email\" id=\"updateTeacherInfo_email\" value=\""+ map.get("email") +"\" class=\"form-control\" >\n" +
+                    "                                    </div>\n" +
+                    "                                </div>\n" +
+                    "                                <div class=\"card-footer\">\n" +
+                    "                                    <button type=\"submit\" class=\"btn btn-primary btn-sm\" id=\"updateTeacherInfo1\">\n" +
+                    "                                        <i class=\"fa fa-dot-circle-o\"></i> 提交修改\n" +
+                    "                                    </button>\n" +
+                    "                                </div>\n" +
+                    "                            </div>\n" +
+                    "                        </div>";
+            return s;
+        }
+
+    }
+
+    @RequestMapping(value = "/save_teachetInfo.do", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String save_teacherInfo(String name, String sex, int age, String email, String userId) {
+        try {
+            teacherDao.saveTeacherInfo(name, sex, age, email, userId);
         } catch (Exception e) {
             e.printStackTrace();
             return "保存失败!";

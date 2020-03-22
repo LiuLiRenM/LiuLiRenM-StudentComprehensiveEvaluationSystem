@@ -108,54 +108,170 @@
                             </div>
                         </div>
 
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>添加班主任信息</strong>
+                            </div>
+                            <div class="card-body card-block">
+                                <form action="" method="post" class="form-group">
+                                    <div class="form-group">
+                                        <label for="teacherName" class="pr-1  form-control-label">班主任姓名：</label>
+                                        <input type="text" id="teacherName" required="" class="form-control" name="teacherName">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="teacherId" class="pr-1  form-control-label">职工号：</label>
+                                        <input type="text" id="teacherId" required="" class="form-control" name="teacherId">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="teacherAge" class="pr-1  form-control-label">年龄：</label>
+                                        <input type="text" id="teacherAge" required="" class="form-control" name="teacherAge">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
+                                            <label for="teacher_college" class="pr-1  form-control-label">所属学院：</label>
+                                            <select class="js-select2" name="property" id="teacher_college" >
+                                                <option value="" selected>请选择学院：</option>
+                                                <option id="" value="">Products</option>
+                                                <option value="">Services</option>
+                                            </select>
+                                            <div class="dropDownSelect2"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
+                                            <label for="teacher_class" class="pr-1  form-control-label">所带班级：</label>
+                                            <select class="js-select2" name="property" id="teacher_class" multiple>
+                                                <option value="">Products</option>
+                                                <option value="">Services</option>
+                                            </select>
+                                            <div class="dropDownSelect2"></div>
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label class=" form-control-label">性别</label>
+                                        </div>
+                                        <div class="col col-md-9">
+                                            <div class="form-check-inline form-check">
+                                                <label for="inline-radio1" class="form-check-label ">
+                                                    <input type="radio" id="inline-radio1" name="inline-radios" value="男" class="form-check-input" checked>男
+                                                </label>
+                                                <label for="inline-radio2" class="form-check-label ">
+                                                    <input type="radio" id="inline-radio2" name="inline-radios" value="女" class="form-check-input">女
+                                                </label>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary btn-sm" id="addTeacher">
+                                    <i class="fa fa-dot-circle-o"></i> 保存
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>修改班主任信息</strong>
+                            </div>
+                            <div class="card-body card-block">
+                                <form action="" method="post" class="form-inline">
+                                    <div class="form-group">
+                                        <label for="checkTeacherInfo1" class="pr-1  form-control-label">请输入要修改信息的班主任的职工号：</label>
+                                        <input type="text" id="checkTeacherInfo1" required="" class="form-control" name="checkTeacherInfo1">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary btn-sm" id="checkTeacher1">
+                                    <i class="fa fa-dot-circle-o"></i> 查询
+                                </button>
+                            </div>
+                        </div>
+
                         <div class="col-lg-6">
                             <div class="card">
                                 <div class="card-header">
-                                    <strong>学生信息</strong>
+                                    <strong>班主任信息</strong>
                                 </div>
                                 <div class="card-body card-block">
                                     <div class="form-group">
-                                        <label for="updatestudentInfo_name" class=" form-control-label">姓名</label>
-                                        <input type="text" id="updatestudentInfo_name" value="" class="form-control" >
+                                        <label for="teacherName" class=" form-control-label">姓名</label>
+                                        <input type="text" id="teacherName" value="" class="form-control" readonly>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="updatestudentInfo_id" class=" form-control-label">学号</label>
-                                        <input type="text" id="updatestudentInfo_id" value="" class="form-control" >
+                                        <label for="teacherId" class=" form-control-label">职工号</label>
+                                        <input type="text" id="teacherId" value="" class="form-control" readonly>
                                     </div>
                                     <div class="row form-group">
                                         <div class="col-8">
                                             <div class="form-group">
-                                                <label for="updatestudentInfo_sex" class=" form-control-label">性别</label>
-                                                <input type="text" id="updatestudentInfo_sex" value="" class="form-control" >
+                                                <label for="teacherSex" class=" form-control-label">性别</label>
+                                                <input type="text" id="teacherSex" value="" class="form-control" readonly>
                                             </div>
                                         </div>
                                         <div class="col-8">
                                             <div class="form-group">
-                                                <label for="updatestudentInfo_beginYear" class=" form-control-label">入学年份</label>
-                                                <input type="text" id="updatestudentInfo_beginYear" value="" class="form-control" >
+                                                <label for="teacherAge" class=" form-control-label">年龄</label>
+                                                <input type="text" id="teacherAge" value="" class="form-control" readonly>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="updatestudentInfo_class" class=" form-control-label">班级</label>
-                                        <input type="text" id="updatestudentInfo_class" value="" class="form-control" >
+                                        <label for="teacherCollege" class=" form-control-label">学院</label>
+                                        <input type="text" id="teacherCollege" value="" class="form-control" readonly>
                                     </div>
                                     <div class="form-group">
-                                        <label for="updatestudentInfo_profession" class=" form-control-label">专业</label>
-                                        <input type="text" id="updatestudentInfo_profession" value="" class="form-control" >
+                                        <label for="teacherEmail" class=" form-control-label">Email</label>
+                                        <input type="text" id="teacherEmail" value="" class="form-control" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <strong>班主任信息</strong>
+                                </div>
+                                <div class="card-body card-block">
+                                    <div class="form-group">
+                                        <label for="teacherName" class=" form-control-label">姓名</label>
+                                        <input type="text" id="teacherName" value="" class="form-control">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="teacherId" class=" form-control-label">职工号</label>
+                                        <input type="text" id="teacherId" value="" class="form-control" readonly>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col-8">
+                                            <div class="form-group">
+                                                <label for="teacherSex" class=" form-control-label">性别</label>
+                                                <input type="text" id="teacherSex" value="" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="form-group">
+                                                <label for="teacherAge" class=" form-control-label">年龄</label>
+                                                <input type="text" id="teacherAge" value="" class="form-control" >
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="updatestudentInfo_college" class=" form-control-label">学院</label>
-                                        <input type="text" id="updatestudentInfo_college" value="" class="form-control" >
+                                        <input type="text" id="updatestudentInfo_college" value="" class="form-control" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="updatestudentInfo_email" class=" form-control-label">Email</label>
-                                        <input type="text" id="updatestudentInfo_email" value="" class="form-control" >
+                                        <input type="email" id="updatestudentInfo_email" value="" class="form-control" >
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary btn-sm" id="updateStudentInfo">
+                                    <button type="submit" class="btn btn-primary btn-sm" id="updateStudentInfo1">
                                         <i class="fa fa-dot-circle-o"></i> 提交修改
                                     </button>
                                 </div>

@@ -1632,6 +1632,15 @@
         case "updatePersonalInfo1":
           checkAndUpdate("/menus/updateStudentInfos.do");
           break;
+        case "addTeacherInfo":
+          send("/menus/addTeacherInfo.do");
+          break;
+        case "checkTeacherInfo1":
+          send("/menus/checkTeacherInfo.do");
+          break;
+        case "updateTeacherInfo1":
+          send("/menus/updateTeacherInfo.do");
+          break;
       }
 
     });
@@ -1726,54 +1735,6 @@
         if (data === "查询失败，没有此学号的学生") {
           alert(data);
         } else {
-          /*let s = '<div class="col-lg-6">\n' +
-              '                            <div class="card">\n' +
-              '                                <div class="card-header">\n' +
-              '                                    <strong>学生信息</strong>\n' +
-              '                                </div>\n' +
-              '                                <div class="card-body card-block">\n' +
-              '                                    <div class="form-group">\n' +
-              '                                        <label for="studentInfo_name" class=" form-control-label">姓名</label>\n' +
-              '                                        <input type="text" id="studentInfo_name" value="'+ data.studnetName +'" class="form-control" readonly="readonly">\n' +
-              '                                    </div>\n' +
-              '\n' +
-              '                                    <div class="form-group">\n' +
-              '                                        <label for="studentInfo_id" class=" form-control-label">学号</label>\n' +
-              '                                        <input type="text" id="studentInfo_id" value="'+ data.studentId +'" class="form-control" readonly="readonly">\n' +
-              '                                    </div>\n' +
-              '                                    <div class="row form-group">\n' +
-              '                                        <div class="col-8">\n' +
-              '                                            <div class="form-group">\n' +
-              '                                                <label for="studentInfo_sex" class=" form-control-label">性别</label>\n' +
-              '                                                <input type="text" id="studentInfo_sex" value="'+ data.sex +'" class="form-control" readonly="readonly">\n' +
-              '                                            </div>\n' +
-              '                                        </div>\n' +
-              '                                        <div class="col-8">\n' +
-              '                                            <div class="form-group">\n' +
-              '                                                <label for="studentInfo_beginYear" class=" form-control-label">入学年份</label>\n' +
-              '                                                <input type="text" id="studentInfo_beginYear" value="'+ data.beginYear +'年" class="form-control" readonly="readonly">\n' +
-              '                                            </div>\n' +
-              '                                        </div>\n' +
-              '                                    </div>\n' +
-              '                                    <div class="form-group">\n' +
-              '                                        <label for="studentInfo_class" class=" form-control-label">班级</label>\n' +
-              '                                        <input type="text" id="studentInfo_class" value="'+ data.className +'" class="form-control" readonly="readonly">\n' +
-              '                                    </div>\n' +
-              '                                    <div class="form-group">\n' +
-              '                                        <label for="studentInfo_profession" class=" form-control-label">专业</label>\n' +
-              '                                        <input type="text" id="studentInfo_profession" value="'+ data.professionName +'" class="form-control" readonly="readonly">\n' +
-              '                                    </div>\n' +
-              '                                    <div class="form-group">\n' +
-              '                                        <label for="studentInfo_college" class=" form-control-label">学院</label>\n' +
-              '                                        <input type="text" id="studentInfo_college" value="'+ data.collegName +'" class="form-control" readonly="readonly">\n' +
-              '                                    </div>\n' +
-              '                                    <div class="form-group">\n' +
-              '                                        <label for="studentInfo_email" class=" form-control-label">Email</label>\n' +
-              '                                        <input type="text" id="studentInfo_email" value="'+ data.email +'" class="form-control" readonly="readonly">\n' +
-              '                                    </div>\n' +
-              '                                </div>\n' +
-              '                            </div>\n' +
-              '                        </div>';*/
           $("#content").html(data);
 
         }
@@ -1786,62 +1747,9 @@
         if (data === "查询失败，没有此学号的学生") {
           alert(data);
         } else {
-          /*let s = '<div class="col-lg-6">\n' +
-              '                            <div class="card">\n' +
-              '                                <div class="card-header">\n' +
-              '                                    <strong>学生信息</strong>\n' +
-              '                                </div>\n' +
-              '                                <div class="card-body card-block">\n' +
-              '                                    <div class="form-group">\n' +
-              '                                        <label for="updatestudentInfo_name" class=" form-control-label">姓名</label>\n' +
-              '                                        <input type="text" id="updatestudentInfo_name" value="'+ data.studnetName +'" class="form-control" >\n' +
-              '                                    </div>\n' +
-              '\n' +
-              '                                    <div class="form-group">\n' +
-              '                                        <label for="updatestudentInfo_id" class=" form-control-label">学号</label>\n' +
-              '                                        <input type="text" id="updatestudentInfo_id" value="'+ data.studentId +'" class="form-control" readonly="readonly">\n' +
-              '                                    </div>\n' +
-              '                                    <div class="row form-group">\n' +
-              '                                        <div class="col-8">\n' +
-              '                                            <div class="form-group">\n' +
-              '                                                <label for="updatestudentInfo_sex" class=" form-control-label">性别</label>\n' +
-              '                                                <input type="text" id="updatestudentInfo_sex" value="'+ data.sex +'" class="form-control" >\n' +
-              '                                            </div>\n' +
-              '                                        </div>\n' +
-              '                                        <div class="col-8">\n' +
-              '                                            <div class="form-group">\n' +
-              '                                                <label for="updatestudentInfo_beginYear" class=" form-control-label">入学年份</label>\n' +
-              '                                                <input type="text" id="updatestudentInfo_beginYear" value="'+ data.beginYear +'年" class="form-control" readonly="readonly">\n' +
-              '                                            </div>\n' +
-              '                                        </div>\n' +
-              '                                    </div>\n' +
-              '                                    <div class="form-group">\n' +
-              '                                        <label for="updatestudentInfo_class" class=" form-control-label">班级</label>\n' +
-              '                                        <input type="text" id="updatestudentInfo_class" value="'+ data.className +'" class="form-control" readonly="readonly">\n' +
-              '                                    </div>\n' +
-              '                                    <div class="form-group">\n' +
-              '                                        <label for="updatestudentInfo_profession" class=" form-control-label">专业</label>\n' +
-              '                                        <input type="text" id="updatestudentInfo_profession" value="'+ data.professionName +'" class="form-control" readonly="readonly">\n' +
-              '                                    </div>\n' +
-              '                                    <div class="form-group">\n' +
-              '                                        <label for="updatestudentInfo_college" class=" form-control-label">学院</label>\n' +
-              '                                        <input type="text" id="updatestudentInfo_college" value="'+ data.collegName +'" class="form-control" readonly="readonly">\n' +
-              '                                    </div>\n' +
-              '                                    <div class="form-group">\n' +
-              '                                        <label for="updatestudentInfo_email" class=" form-control-label">Email</label>\n' +
-              '                                        <input type="email" id="updatestudentInfo_email" value="'+ data.email +'" class="form-control" >\n' +
-              '                                    </div>\n' +
-              '                                </div>\n' +
-              '                                <div class="card-footer">\n' +
-              '                                    <button type="submit" class="btn btn-primary btn-sm" id="updateStudentInfo">\n' +
-              '                                        <i class="fa fa-dot-circle-o"></i> 提交修改\n' +
-              '                                    </button>\n' +
-              '                                </div>\n' +
-              '                            </div>\n' +
-              '                        </div>';*/
           $("#content").html(data);
         }
-      })
+      });
     });
 
     $("#content").on("click", "#updateStudentInfo", function () {
@@ -1851,6 +1759,61 @@
       let id = $("#updatestudentInfo_id").val();
 
       $.post("/menus/updateInfo.do", {name:name, sex:sex, email:email, id:id}, function (data) {
+        alert(data);
+      })
+    });
+
+    $("#content").on("click", "#addTeacher", function () {
+      let name = $("#teacherName").val();
+      let userId = $("#teacherId").val();
+      let age = $("#teacherAge").val();
+      let collegeId = $("#teacher_college option:selected").val();
+      let classes = new Array();
+      $('#teacher_class option:selected').each(function () {
+        classes.push($(this).val());
+      });
+      let sex = $("input:radio:checked").val();
+      //console.log(name + "/" + id +"/" + age + "/" + collegeId + "/" + classes + "/" + sex);
+      let teacher = {name:name, userId:userId, age:age, collegeId:collegeId, classes:classes, sex:sex}
+      //console.log(teacher);
+
+      $.post("/menus/saveTeacherInfo.do", {teacher:JSON.stringify(teacher)}, function (data) {
+        alert(data);
+      })
+    });
+
+    $("#content").on("click", "#checkTeacher", function () {
+
+      let s_id = $("#checkTeacherInfo").val();
+      $.post("/menus/checkTeacherInfos.do", {teacherId:s_id}, function (data) {
+        if (data === "查询失败，没有此职工号的班主任") {
+          alert(data);
+        } else {
+          $("#content").html(data);
+        }
+      });
+    });
+
+    $("#content").on("click", "#updateTeacher", function () {
+      let s_id = $("#updateTeacherInfos").val();
+      console.log(s_id);
+      $.post("/menus/updateTeacherInfos.do", {teacherId:s_id}, function (data) {
+        if (data === "查询失败，没有此职工号的班主任") {
+          alert(data);
+        } else {
+          $("#content").html(data);
+        }
+      });
+
+    });
+
+    $("#content").on("click", "#updateTeacherInfo1", function () {
+      let name = $("#teacherName").val();
+      let sex = $("#teacherSex").val();
+      let age = $("#teacherAge").val();
+      let email = $("#updateTeacherInfo_email").val();
+      let userId = $("#teacherId").val();
+      $.post("/menus/save_teachetInfo.do", {name:name, sex:sex, age:age, email:email, userId:userId}, function (data) {
         alert(data);
       })
     })
