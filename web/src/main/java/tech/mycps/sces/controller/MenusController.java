@@ -3,11 +3,13 @@ package tech.mycps.sces.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import redis.clients.jedis.Jedis;
 import tech.mycps.sces.dao.*;
 import tech.mycps.sces.domain.*;
 import tech.mycps.sces.domain.Class;
@@ -21,27 +23,34 @@ import java.util.Map;
 public class MenusController {
 
     @Autowired
-    CollegeDao collegeDao;
+    private CollegeDao collegeDao;
     @Autowired
-    ProfessionDao professionDao;
+    private ProfessionDao professionDao;
     @Autowired
-    EvaluationTypeDao evaluationTypeDao;
+    private EvaluationTypeDao evaluationTypeDao;
     @Autowired
-    EvaluationItemDao evaluationItemDao;
+    private EvaluationItemDao evaluationItemDao;
     @Autowired
-    ClassDao classDao;
+    private ClassDao classDao;
     @Autowired
-    StudentDao studentDao;
+    private StudentDao studentDao;
     @Autowired
-    RoleDao roleDao;
+    private RoleDao roleDao;
     @Autowired
-    UserInfoDao userInfoDao;
+    private UserInfoDao userInfoDao;
     @Autowired
-    UserRoleDao userRoleDao;
+    private UserRoleDao userRoleDao;
     @Autowired
-    TeacherDao teacherDao;
+    private TeacherDao teacherDao;
     @Autowired
-    TeacherClassDao teacherClassDao;
+    private TeacherClassDao teacherClassDao;
+    @Autowired
+    private ClassItemDao classItemDao;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
+    Jedis jedis = new Jedis("localhost", 6379);
 
     @RequestMapping(value = "/collegeManage.do", produces = "text/html;charset=UTF-8")
     @ResponseBody
@@ -291,7 +300,7 @@ public class MenusController {
         String password = studentId.substring(4);
         try {
             studentDao.insertStudentInfo(studentId, studentName, sex, Integer.parseInt(id), Integer.parseInt(beginYear));
-            userInfoDao.insertUserInfo(studentId, password, 1);
+            userInfoDao.insertUserInfo(studentId, bCryptPasswordEncoder.encode(password), 1);
             String userId = userInfoDao.findIdByUsername(studentId);
             String roleId = roleDao.findIdByRoleName("STUDENT");
             userRoleDao.insertUserRole(userId, roleId);
@@ -623,7 +632,7 @@ public class MenusController {
         String password = username.substring(4);
         //System.out.println(teacher1);
         try {
-            userInfoDao.insertUserInfo(username, password, 1);
+            userInfoDao.insertUserInfo(username, bCryptPasswordEncoder.encode(password), 1);
             String userId = userInfoDao.findIdByUsername(username);
             String roleId = roleDao.findIdByRoleName("TEACHER");
             userRoleDao.insertUserRole(userId, roleId);
@@ -809,5 +818,141 @@ public class MenusController {
             return "保存失败!";
         }
         return "保存成功!";
+    }
+
+    @RequestMapping(value = "/setEvaluationItem.do", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String setEvaluationItem(String username) {
+        Teacher teacher = teacherDao.findByUserId(username);
+        try {
+            List<Class> classes = teacher.getAllclass();
+            List<EvaluationType> types = evaluationTypeDao.findAll();
+            String s = "<div class=\"card\">\n" +
+                    "                        <div class=\"card-header\">\n" +
+                    "                            <strong>设置测评项</strong>\n" +
+                    "                        </div>\n" +
+                    "                        <div class=\"card-body card-block\">\n" +
+                    "                            <form class=\"form-inline\" action=\"\" method=\"post\">\n" +
+                    "                                <div class=\"row form-inline col-lg-4\">\n" +
+                    "                                    <label class=\"form-control-label\" for=\"begin\">综合测评学年：</label>\n" +
+                    "                                    <input type=\"text\" id=\"begin\" class=\"form-control col-lg-2\">\n" +
+                    "                                    <span>-</span>\n" +
+                    "                                    <input type=\"text\" id=\"end\" class=\"form-control col-lg-2\">\n" +
+                    "                                </div>\n" +
+                    "                                <div class=\"row form-inline\">\n" +
+                    "                                    <label class=\"form-control-label\" for=\"type\">测评项类型：</label>\n" +
+                    "                                    <select class=\"js-select2\" name=\"property\" id=\"type\" >\n" +
+                    "                                        <option value=\"\" selected>请选择测评项：</option>";
+            for (EvaluationType evaluationType
+                    :types
+            ) {
+                s += "<option value=\""+ evaluationType.getId() +"\">"+ evaluationType.getName() +"</option>";
+            }
+            s += "</select>\n" +
+                    "                                    <div class=\"dropDownSelect2\"></div>\n" +
+                    "                                </div>\n" +
+                    "                                <div class=\"row form-inline\">\n" +
+                    "                                    <label class=\"form-control-label\" for=\"class\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;选择班级：</label>\n" +
+                    "                                    <select class=\"js-select2\" name=\"property\" id=\"class\" >\n" +
+                    "                                        <option value=\"\" selected>请选择班级：</option>";
+            for (Class c :
+                    classes) {
+                s += "<option value=\""+ c.getId() +"\">"+ c.getName() +"</option>";
+            }
+            s += "</select>\n" +
+                    "                                    <div class=\"dropDownSelect2\"></div>\n" +
+                    "                                </div>\n" +
+                    "                            </form>\n" +
+                    "                        </div>\n" +
+                    "                        <div class=\"card-footer\">\n" +
+                    "                            <button type=\"submit\" class=\"btn btn-primary btn-sm\" id=\"checkItem\">\n" +
+                    "                                <i class=\"fa fa-dot-circle-o\"></i> 查看测评项\n" +
+                    "                            </button>\n" +
+                    "                        </div>\n" +
+                    "                    </div>";
+            return s;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "<h2>你还没有带班</h2>";
+        }
+
+    }
+
+    @RequestMapping(value = "/checkItem.do", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String checkItem(String begin, String end, String typeId, String classId) {
+        jedis.set("begin", begin);
+        jedis.set("end", end);
+        jedis.set("typeId", typeId);
+        jedis.set("classId", classId);
+        List<EvaluationItem> evaluationItems = evaluationItemDao.findByTypeId(Integer.parseInt(typeId));
+        String s = "<div class=\"col-lg-6\">\n" +
+                "                        <div class=\"user-data m-b-30\">\n" +
+                "                            <h3 class=\"title-3 m-b-30\">\n" +
+                "                                <i class=\"zmdi zmdi-account-calendar\"></i>综合测评项</h3>\n" +
+                "                            <div class=\"table-responsive table-data\">\n" +
+                "                                <table class=\"table\">\n" +
+                "                                    <thead>\n" +
+                "                                    <tr>\n" +
+                "                                        <td>状态</td>\n" +
+                "                                        <td>测评项名称</td>\n" +
+                "                                        <td>分值</td>\n" +
+                "                                        <td>类型</td>\n" +
+                "                                    </tr>\n" +
+                "                                    </thead>\n" +
+                "                                    <tbody>";
+        for (EvaluationItem evaluationItem: evaluationItems) {
+            s += "<tr>\n" +
+                    "                                        <td>\n" +
+                    "                                            <label class=\"au-checkbox\">\n" +
+                    "                                                <input type=\"checkbox\" value=\""+ evaluationItem.getId() +"\" >\n" +
+                    "                                                <span class=\"au-checkmark\"></span>\n" +
+                    "                                            </label>\n" +
+                    "                                        </td>\n" +
+                    "                                        <td>\n" +
+                    "                                            <div class=\"table-data__info\">\n" +
+                    "                                                <h6>"+ evaluationItem.getName() +"</h6>\n" +
+                    "                                            </div>\n" +
+                    "                                        </td>\n" +
+                    "                                        <td>\n" +
+                    "                                            <div class=\"table-data__info\">\n" +
+                    "                                                <h6>"+ evaluationItem.getMax() +"</h6>\n" +
+                    "                                            </div>\n" +
+                    "                                        </td>\n" +
+                    "                                        <td>\n" +
+                    "                                            <div class=\"table-data__info\">\n" +
+                    "                                                <h6>"+ evaluationItem.getTypeName() +"</h6>\n" +
+                    "                                            </div>\n" +
+                    "                                        </td>\n" +
+                    "                                    </tr>";
+        }
+        s += "</tbody>\n" +
+                "                                </table>\n" +
+                "                            </div>\n" +
+                "                            <div class=\"user-data__footer\">\n" +
+                "                                <button class=\"au-btn au-btn-load\" id=\"sure\">确定</button>\n" +
+                "                            </div>\n" +
+                "                        </div>\n" +
+                "                    </div>";
+        return s;
+    }
+
+    @RequestMapping(value = "/checkItems.do", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String checkItems(@RequestParam(value = "checkId[]") Integer[] checkId) {
+        String begin = jedis.get("begin");
+        String end = jedis.get("end");
+        String typeId = jedis.get("typeId");
+        String classId = jedis.get("classId");
+        try {
+            for (Integer in :
+                    checkId) {
+                classItemDao.insertItem(Integer.parseInt(classId), in, Integer.parseInt(begin), Integer.parseInt(end), Integer.parseInt(typeId));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "保存失败";
+        }
+        return "保存成功";
     }
 }

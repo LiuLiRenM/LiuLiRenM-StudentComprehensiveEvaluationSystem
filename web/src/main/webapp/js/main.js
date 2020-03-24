@@ -1641,6 +1641,10 @@
         case "updateTeacherInfo1":
           send("/menus/updateTeacherInfo.do");
           break;
+        case "setEvaluationItem":
+          let username = $("#username_header").text();
+          send("/menus/setEvaluationItem.do?username=" + username);
+          break;
       }
 
     });
@@ -1814,6 +1818,31 @@
       let email = $("#updateTeacherInfo_email").val();
       let userId = $("#teacherId").val();
       $.post("/menus/save_teachetInfo.do", {name:name, sex:sex, age:age, email:email, userId:userId}, function (data) {
+        alert(data);
+      })
+    });
+
+    $("#content").on("click", "#checkItem", function () {
+      let begin = $("#begin").val();
+      let end = $("#end").val();
+      let typeId = $("#type option:selected").val();
+      let classId = $("#class option:selected").val();
+      if (typeId === "请选择测评项：" || classId === "请选择班级：") {
+        alert("请先将数据填充完整");
+      } else {
+        $.post("/menus/checkItem.do", {begin:begin, end:end, typeId:typeId, classId:classId}, function (data) {
+          $("#content").html(data);
+        })
+      }
+    });
+
+    $("#content").on("click", "#sure", function (data) {
+      let checkId = [];
+      $("input:checkbox:checked").each(function (i) {
+        checkId[i] = $(this).val();
+      });
+      //console.log(checkId);
+      $.post("/menus/checkItems.do", {checkId:checkId}, function (data) {
         alert(data);
       })
     })

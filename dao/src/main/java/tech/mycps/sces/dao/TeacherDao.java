@@ -1,9 +1,6 @@
 package tech.mycps.sces.dao;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import tech.mycps.sces.domain.Teacher;
 
@@ -21,4 +18,11 @@ public interface TeacherDao {
 
     @Update("update teacher set name = #{name}, sex = #{sex}, age = #{age}, email = #{email} where userId = #{userId}")
     public void saveTeacherInfo(@Param("name") String name, @Param("sex") String sex, @Param("age") int age, @Param("email") String email, @Param("userId") String userId);
+
+    @Select("select * from teacher where userId = #{userId}")
+    @Results({
+            @Result(id = true, property = "id", column = "id"),
+            @Result(property = "allclass", column = "id", javaType = java.util.List.class, many = @Many(select = "tech.mycps.sces.dao.ClassDao.findClassesById"))
+    })
+    public Teacher findByUserId(String userId);
 }

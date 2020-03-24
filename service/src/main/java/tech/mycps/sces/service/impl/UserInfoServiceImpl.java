@@ -56,7 +56,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         //System.out.println(userInfo);
 
         //将自己写的user对象封装成UserDetails（SpringSecurity提供的一个类）
-        return new User(userInfo.getUsername(), "{noop}" + userInfo.getPassword(),
+        return new User(userInfo.getUsername(), userInfo.getPassword(),
                 userInfo.getStatus() == 0 ? false : true,true,
                 true, true, getAuthority(userInfo.getRoles()));
     }

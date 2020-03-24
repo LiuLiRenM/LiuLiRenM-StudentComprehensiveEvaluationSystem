@@ -152,7 +152,7 @@
                                         <h5 class="name">
                                             <a href="#"><security:authentication property="principal.username"></security:authentication></a>
                                         </h5>
-                                        <span class="email">johndoe@example.com</span>
+                                        <span class="email"></span>
                                     </div>
                                 </div>
                                 <div class="account-dropdown__body">

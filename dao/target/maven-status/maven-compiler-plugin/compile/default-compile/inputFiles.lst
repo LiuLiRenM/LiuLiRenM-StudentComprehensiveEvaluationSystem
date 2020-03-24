@@ -11,3 +11,4 @@
 /media/yufei/Code/IdeaProjects/StudentComprehensiveEvaluationSystem/dao/src/main/java/tech/mycps/sces/dao/StudentDao.java
 /media/yufei/Code/IdeaProjects/StudentComprehensiveEvaluationSystem/dao/src/main/java/tech/mycps/sces/dao/EvaluationItemDao.java
 /media/yufei/Code/IdeaProjects/StudentComprehensiveEvaluationSystem/dao/src/main/java/tech/mycps/sces/dao/TeacherDao.java
+/media/yufei/Code/IdeaProjects/StudentComprehensiveEvaluationSystem/dao/src/main/java/tech/mycps/sces/dao/ClassItemDao.java

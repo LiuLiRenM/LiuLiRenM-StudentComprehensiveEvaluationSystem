@@ -108,7 +108,7 @@
                             </div>
                         </div>
 
-                        <div class="card">
+                        <%--<div class="card">
                             <div class="card-header">
                                 <strong>添加班主任信息</strong>
                             </div>
@@ -277,6 +277,92 @@
                                 </div>
                             </div>
                         </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>设置测评项</strong>
+                        </div>
+                        <div class="card-body card-block">
+                            <form class="form-inline" action="" method="post">
+                                <div class="row form-inline col-lg-4">
+                                    <label class="form-control-label" for="begin">综合测评学年：</label>
+                                    <input type="text" id="begin" class="form-control col-lg-2">
+                                    <span>-</span>
+                                    <input type="text" id="end" class="form-control col-lg-2">
+                                </div>
+                                <div class="row form-inline">
+                                    <label class="form-control-label" for="type">测评项类型：</label>
+                                    <select class="js-select2" name="property" id="type" >
+                                        <option value="" selected>请选择测评项：</option>
+                                        <option value="">Products</option>
+                                        <option value="">Services</option>
+                                    </select>
+                                    <div class="dropDownSelect2"></div>
+                                </div>
+                                <div class="row form-inline">
+                                    <label class="form-control-label" for="class">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;选择班级：</label>
+                                    <select class="js-select2" name="property" id="class" >
+                                        <option value="" selected>请选择班级：</option>
+                                        <option value="">Products</option>
+                                        <option value="">Services</option>
+                                    </select>
+                                    <div class="dropDownSelect2"></div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary btn-sm" id="checkItem">
+                                <i class="fa fa-dot-circle-o"></i> 查看测评项
+                            </button>
+                        </div>
+                    </div>--%>
+
+                    <%--<div class="col-lg-6">
+                        <div class="user-data m-b-30">
+                            <h3 class="title-3 m-b-30">
+                                <i class="zmdi zmdi-account-calendar"></i>综合测评项</h3>
+                            <div class="table-responsive table-data">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <td>状态</td>
+                                        <td>测评项名称</td>
+                                        <td>分值</td>
+                                        <td>类型</td>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <label class="au-checkbox">
+                                                <input type="checkbox">
+                                                <span class="au-checkmark"></span>
+                                            </label>
+                                        </td>
+                                        <td>
+                                            <div class="table-data__info">
+                                                <h6>知行合一百佳</h6>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="table-data__info">
+                                                <h6>2</h6>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="table-data__info">
+                                                <h6>德育素质</h6>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="user-data__footer">
+                                <button class="au-btn au-btn-load" id="sure">确定</button>
+                            </div>
+                        </div>
+                    </div>--%>
 
                 </div>
             </div>

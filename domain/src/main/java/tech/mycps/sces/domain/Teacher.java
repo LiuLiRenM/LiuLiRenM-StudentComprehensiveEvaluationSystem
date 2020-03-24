@@ -11,8 +11,24 @@ public class Teacher {
     private int age;
     private int collegeId;
     private String email;
+    private List<Class> allclass;
     private List<String> classes;
 
+    public List<Class> getAllclass() {
+        return allclass;
+    }
+
+    public void setAllclass(List<Class> allclass) {
+        this.allclass = allclass;
+    }
+
+    public List<String> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(List<String> classes) {
+        this.classes = classes;
+    }
 
     public int getId() {
         return id;
@@ -70,14 +86,6 @@ public class Teacher {
         this.userId = userId;
     }
 
-    public List<String> getClasses() {
-        return classes;
-    }
-
-    public void setClasses(List<String> classes) {
-        this.classes = classes;
-    }
-
     @Override
     public String toString() {
         return "Teacher{" +
@@ -88,7 +96,7 @@ public class Teacher {
                 ", age=" + age +
                 ", collegeId=" + collegeId +
                 ", email='" + email + '\'' +
-                ", classes=" + classes +
+                ", classes=" + allclass +
                 '}';
     }
 }

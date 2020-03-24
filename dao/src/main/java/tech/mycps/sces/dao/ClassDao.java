@@ -14,4 +14,7 @@ public interface ClassDao {
 
     @Select("select * from class where id = #{id}")
     public Class findById(int id);
+
+    @Select("select * from class where id in (select classId from teacher_class where teacherId = #{teacherId})")
+    public List<Class> findClassesById(int teacherId);
 }

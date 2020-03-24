@@ -51,11 +51,14 @@
     <security:authentication-manager alias="authenticationManager">
         <security:authentication-provider user-service-ref="userService">
 
+            <!--配置加密的方式-->
+            <security:password-encoder ref="passwordEncoder"/>
+
         </security:authentication-provider>
     </security:authentication-manager>
 
     <!--配置加密类-->
-   <!-- <bean class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" id="passwordEncoder"/>-->
+    <bean class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" id="passwordEncoder"/>
 
     <!-- 提供了入门的方式，在内存中存入用户名和密码-->
    <!-- <security:authentication-manager>
