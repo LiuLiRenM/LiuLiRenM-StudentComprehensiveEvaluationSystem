@@ -1607,6 +1607,8 @@
     });*/
     $("#sidebar").on("click",".js_test", function () {
 
+      let username = $("#username_header").text();
+
       switch ($(this).attr("id")) {
         case "collegeInfoManage":
           send("/menus/collegeManage.do");
@@ -1642,8 +1644,13 @@
           send("/menus/updateTeacherInfo.do");
           break;
         case "setEvaluationItem":
-          let username = $("#username_header").text();
           send("/menus/setEvaluationItem.do?username=" + username);
+          break;
+        case "manageEvaluationResult":
+          send("/menus/manageEvaluationResult.do?username=" + username);
+          break;
+        case "checkEvaluationScore":
+          send("/menus/checkEvaluationScore.do?username=" + username);
           break;
       }
 
@@ -1836,7 +1843,7 @@
       }
     });
 
-    $("#content").on("click", "#sure", function (data) {
+    $("#content").on("click", "#sure", function () {
       let checkId = [];
       $("input:checkbox:checked").each(function (i) {
         checkId[i] = $(this).val();
@@ -1844,8 +1851,74 @@
       //console.log(checkId);
       $.post("/menus/checkItems.do", {checkId:checkId}, function (data) {
         alert(data);
+        let username = $("#username_header").text();
+        send("/menus/setEvaluationItem.do?username=" + username);
       })
-    })
+    });
+
+    $("#content").on("click", "#enterScore", function (data) {
+      let begin = $("#begin").val();
+      let classId = $("#classType").val();
+      $.post("/menus/manageEvaluationResults.do", {begin:begin, classId:classId}, function (data) {
+        if (data === "error") {
+          alert("请先设置测评项");
+        } else {
+          $("#content").html(data);
+        }
+      })
+    });
+
+    $("#content").on("click", ".js_a", function () {
+      let num = $(this).attr("data-id");
+      let studentId = $("#" + num).html();
+      //console.log(studentId);
+      $.post("/menus/editEvaluationScore.do", {studentId:studentId}, function (data) {
+        $("#content").html(data);
+      });
+    });
+
+    $("#content").on("click", "#scoreSubmit", function () {
+      let studentId = $(this).attr("studentId");
+      let begin = $(this).attr("begin");
+      console.log(begin);
+      let scores = [];
+      let flag = true;
+      $(".score").each(function (i) {
+          if ($(this).val() === "") {
+              flag = false;
+          }
+      });
+      if (flag === true) {
+          $(".score").each(function (i) {
+            /*let map = new Map();
+            map.set("studentId", studentId);
+            map.set("itemId", $(this).attr("id"));
+            map.set("score", $(this).val());
+            score[i] = map;*/
+            scores[i] = {};
+            scores[i]['itemId'] = $(this).attr("id");
+            scores[i]['score'] = $(this).val();
+          });
+        $.post("/menus/saveStudentScore.do", {scores:JSON.stringify(scores), studentId:studentId, begin:begin}, function (data) {
+          $("#content").html(data);
+        });
+      } else {
+          alert("请将分数填写完整！");
+      }
+
+      console.log(scores);
+      console.log(JSON.stringify(scores));
+    });
+
+    $("#content").on("click", "#checkEvaluationScoreButton", function () {
+      let begin = $("#begin").val();
+      let username = $(this).attr("username");
+      console.log(begin);
+      console.log(username);
+      $.post("/menus/saveEvaluationScoreButton.do", {begin:begin, username:username}, function (data) {
+        $("#content").html(data);
+      })
+    });
 
   } catch (error) {
     console.log(error);

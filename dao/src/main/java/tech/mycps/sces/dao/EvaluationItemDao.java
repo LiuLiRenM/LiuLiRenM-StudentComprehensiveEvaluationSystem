@@ -33,4 +33,7 @@ public interface EvaluationItemDao {
             @Result(property = "typeName", column = "typeId", many = @Many(select = "tech.mycps.sces.dao.EvaluationTypeDao.findNameById"))
     })
     public List<EvaluationItem> findByTypeId(int typeId);
+
+    @Select("select * from evaluationitem where id in (select evaluationitemId from class_item where classId = #{classId} and beginYear = #{beginYear} and evaluationtypeId = #{evaluationtypeId})")
+    public List<EvaluationItem> findEvaluationItem(@Param("classId") int classId, @Param("beginYear") int beginYear, @Param("evaluationtypeId") int evaluationtypeId);
 }

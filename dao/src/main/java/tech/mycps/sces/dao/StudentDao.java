@@ -1,11 +1,10 @@
 package tech.mycps.sces.dao;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 import tech.mycps.sces.domain.Student;
+
+import java.util.List;
 
 @Repository
 public interface StudentDao {
@@ -18,4 +17,11 @@ public interface StudentDao {
 
     @Update("update student set name = #{name}, sex = #{sex}, email = #{email} where userId = #{id}")
     public void updateStudentInfo(@Param("id") String id, @Param("name") String name, @Param("sex") String sex, @Param("email") String email);
+
+    @Select("select * from student where classId = #{classId}")
+    @Results({
+            @Result(id = true, property = "id", column = "id"),
+            @Result(property = "className", column = "classId", javaType = String.class, many = @Many(select = "tech.mycps.sces.dao.ClassDao.findClassNameById"))
+    })
+    public List<Student> findStudentByClassId(int classId);
 }

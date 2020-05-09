@@ -364,6 +364,134 @@
                         </div>
                     </div>--%>
 
+                        <%--<div class="card">
+                            <div class="card-header">
+                                <strong>学生测评成绩管理</strong>
+                            </div>
+                            <div class="card-body card-block">
+                                <form class="form-inline" action="" method="post">
+                                    <div class="row form-inline col-lg-4">
+                                        <label class="form-control-label" for="begin">测评学年：</label>
+                                        <input type="text" id="begin" class="form-control col-lg-2">
+                                        <span>-</span>
+                                        <input type="text" id="end" class="form-control col-lg-2">
+                                    </div>
+                                    <div class="row form-inline">
+                                        <label class="form-control-label" for="classType">选择所要测评的班级：</label>
+                                        <select class="js-select2" name="property" id="classType" >
+                                            <option value="" selected>请选择班级：</option>
+                                            <option value="">Products</option>
+                                            <option value="">Services</option>
+                                        </select>
+                                        <div class="dropDownSelect2"></div>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary btn-sm" id="enterScore">
+                                    <i class="fa fa-dot-circle-o"></i> 录入操行成绩
+                                </button>
+                            </div>
+                        </div>--%>
+
+                        <%--<div class="row m-t-30">
+                            <div class="col-lg-12">
+                                <div class="table-responsive m-b-40">
+                                    <table class="table table-borderless table-data3">
+                                        <thead>
+                                        <tr>
+                                            <th>序号</th>
+                                            <th>学号</th>
+                                            <th>姓名</th>
+                                            <th>班级</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>2016101825</td>
+                                            <td>刘耀文</td>
+                                            <td class="process">16计算机科学与技术01班</td>
+                                            <td><i class="fas fa-edit"></i><a href="">编辑操行评定成绩</a></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>--%>
+
+                        <%--<di>
+                            <h2 class="title-1 m-b-25">德育素质</h2>
+                            <div class="table-responsive table--no-card m-b-40">
+                                <table class="table table-borderless table-striped table-earning">
+                                    <tbody>
+                                    <tr>
+                                        <td>知行合一百佳[参考分2]：</td>
+                                        <td><input type="text" style="border: 1px solid" oninput="if (value > 2) alert('值过大')"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </di>
+
+                    <input>--%>
+
+                    <%--<div class="card">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>德育素质</strong>
+                            </div>
+                            <div class="card-body card-block">
+                                <form action="" method="post" class="form-horizontal">
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="1" class=" form-control-label score" >知行合一百佳[参考分2]</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input name="1" class="form-control" id="1" oninput="if (value > 2) alert('值过大')">
+                                        </div>
+                                    </div>
+                                    <div class="row form-group">
+                                        <div class="col col-md-3">
+                                            <label for="2" class=" form-control-label score">十佳大学生[参考分3]</label>
+                                        </div>
+                                        <div class="col-12 col-md-9">
+                                            <input name="2" class="form-control" id="2">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary btn-sm" id="scoreSubmit" studentId="1">
+                                <i class="fa fa-dot-circle-o "></i> 确定
+                            </button>
+                        </div>
+                    </div>--%>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <strong>请选择要查询的学年</strong>
+                            </div>
+                            <div class="card-body card-block">
+                                <form class="form-inline" action="" method="post">
+                                    <div class="row form-inline col-lg-6">
+                                        <label class="form-control-label" for="begin">综合测评学年：</label>
+                                        <input type="text" id="begin" class="form-control col-lg-3">
+                                        <span>-</span>
+                                        <input type="text" id="end" class="form-control col-lg-3">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary btn-sm" id="checkEvaluationScoreButton">
+                                    <i class="fa fa-dot-circle-o"></i> 查看综合测评成绩
+                                </button>
+                            </div>
+                        </div>
+
                 </div>
             </div>
         </div>

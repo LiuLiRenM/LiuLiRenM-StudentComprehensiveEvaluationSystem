@@ -11,6 +11,15 @@ public class Student {
     private int collegeId;
     private int beginYear;
     private String email;
+    private String className;
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
 
     public int getId() {
         return id;
@@ -96,6 +105,7 @@ public class Student {
                 ", collegeId=" + collegeId +
                 ", beginYear=" + beginYear +
                 ", email='" + email + '\'' +
+                ", className='" + className + '\'' +
                 '}';
     }
 }

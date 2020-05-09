@@ -15,7 +15,7 @@
         <div class="container-fluid">
             <div class="header-wrap">
                 <form class="form-header" action="" method="POST">
-                    <input class="au-input au-input--xl" type="text" name="search" placeholder="Search for datas &amp; reports..." />
+                    <input class="au-input au-input--xl" type="text" name="search" />
                     <button class="au-btn--submit" type="submit">
                         <i class="zmdi zmdi-search"></i>
                     </button>
@@ -24,10 +24,10 @@
                     <div class="noti-wrap">
                         <div class="noti__item js-item-menu">
                             <i class="zmdi zmdi-comment-more"></i>
-                            <span class="quantity">1</span>
+                            <span class="quantity">2</span>
                             <div class="mess-dropdown js-dropdown">
                                 <div class="mess__title">
-                                    <p>You have 2 news message</p>
+                                    <p>你有两条新信息</p>
                                 </div>
                                 <div class="mess__item">
                                     <div class="image img-cir img-40">
@@ -50,16 +50,16 @@
                                     </div>
                                 </div>
                                 <div class="mess__footer">
-                                    <a href="#">View all messages</a>
+                                    <a href="#">查看所有信息</a>
                                 </div>
                             </div>
                         </div>
                         <div class="noti__item js-item-menu">
                             <i class="zmdi zmdi-email"></i>
-                            <span class="quantity">1</span>
+                            <span class="quantity">3</span>
                             <div class="email-dropdown js-dropdown">
                                 <div class="email__title">
-                                    <p>You have 3 New Emails</p>
+                                    <p>你有三封新邮件</p>
                                 </div>
                                 <div class="email__item">
                                     <div class="image img-cir img-40">
@@ -89,7 +89,7 @@
                                     </div>
                                 </div>
                                 <div class="email__footer">
-                                    <a href="#">See all emails</a>
+                                    <a href="#">查看所有邮件</a>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +98,7 @@
                             <span class="quantity">3</span>
                             <div class="notifi-dropdown js-dropdown">
                                 <div class="notifi__title">
-                                    <p>You have 3 Notifications</p>
+                                    <p>你有三条新通知</p>
                                 </div>
                                 <div class="notifi__item">
                                     <div class="bg-c1 img-cir img-40">
@@ -128,7 +128,7 @@
                                     </div>
                                 </div>
                                 <div class="notifi__footer">
-                                    <a href="#">All notifications</a>
+                                    <a href="#">所有通知</a>
                                 </div>
                             </div>
                         </div>
@@ -158,15 +158,11 @@
                                 <div class="account-dropdown__body">
                                     <div class="account-dropdown__item">
                                         <a href="#">
-                                            <i class="zmdi zmdi-account"></i>Account</a>
+                                            <i class="zmdi zmdi-account"></i>账户</a>
                                     </div>
                                     <div class="account-dropdown__item">
                                         <a href="#">
-                                            <i class="zmdi zmdi-settings"></i>Setting</a>
-                                    </div>
-                                    <div class="account-dropdown__item">
-                                        <a href="#">
-                                            <i class="zmdi zmdi-money-box"></i>Billing</a>
+                                            <i class="zmdi zmdi-settings"></i>设置</a>
                                     </div>
                                 </div>
                                 <div class="account-dropdown__footer">
