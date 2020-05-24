@@ -1629,10 +1629,10 @@
           send("/menus/updateStudentInfo.do");
           break;
         case "checkPersonalInfo1":
-          checkAndUpdate("/menus/checkStudentInfos.do");
+          checkAndUpdate("/menus/checkStudentInfos.do", 1);
           break;
         case "updatePersonalInfo1":
-          checkAndUpdate("/menus/updateStudentInfos.do");
+          checkAndUpdate("/menus/updateStudentInfos.do", 1);
           break;
         case "addTeacherInfo":
           send("/menus/addTeacherInfo.do");
@@ -1651,6 +1651,12 @@
           break;
         case "checkEvaluationScore":
           send("/menus/checkEvaluationScore.do?username=" + username);
+          break;
+        case "checkTeacherInfo2":
+          checkAndUpdate("/menus/checkTeacherInfos.do", 2);
+          break;
+        case "updateTeacherInfo2":
+          checkAndUpdate("/menus/updateTeacherInfos.do", 2);
           break;
       }
 
@@ -1713,11 +1719,18 @@
       });
     }
 
-    function checkAndUpdate(path) {
+    function checkAndUpdate(path, id) {
       let studentId = $("#username_header").text();
-      $.post(path, {studentId:studentId}, function (data) {
-        $("#content").html(data);
-      });
+      if (id === 1) {
+        $.post(path, {studentId:studentId}, function (data) {
+          $("#content").html(data);
+        });
+      } else if (id === 2) {
+        $.post(path, {teacherId:studentId}, function (data) {
+          $("#content").html(data);
+        });
+      }
+
     };
 
     $("#content").on("click", "#studentSumbit", function () {
