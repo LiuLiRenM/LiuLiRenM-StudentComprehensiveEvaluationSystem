@@ -819,7 +819,7 @@ public class MenusController {
              classes) {
             s.append("<option value=\"").append(c.getId()).append("\">").append(c.getName()).append("</option>");
         }
-        s.append("</select>\n" + "                                        <div class=\"dropDownSelect2\"></div>\n" + "                                    </div>\n" + "\n" + "                                </form>\n" + "                            </div>\n" + "                            <div class=\"card-footer\">\n" + "                                <button type=\"submit\" class=\"btn btn-primary btn-sm\" id=\"enterScore\">\n" + "                                    <i class=\"fa fa-dot-circle-o\"></i> 录入操行成绩\n" + "                                </button>\n" + "                            </div>\n" + "                        </div>");
+        s.append("</select>\n" + "                                        <div class=\"dropDownSelect2\"></div>\n" + "                                    </div>\n" + "\n" + "                                </form>\n" + "                            </div>\n" + "                            <div class=\"card-footer\">\n" + "                                <button type=\"submit\" class=\"btn btn-primary btn-sm\" id=\"enterScore\">\n" + "                                    <i class=\"fa fa-dot-circle-o\"></i> 录入综测成绩\n" + "                                </button>\n" + "                            </div>\n" + "                        </div>");
         return s.toString();
     }
 
@@ -852,7 +852,7 @@ public class MenusController {
                     "                                        <tbody>");
             for (Student student :
                     students) {
-                s.append("<tr>\n" + "                                            <td>").append(i).append("</td>\n").append("                                            <td id=\"").append(i).append("\">").append(student.getUserId()).append("</td>\n").append("                                            <td>").append(student.getName()).append("</td>\n").append("                                            <td class=\"process\">").append(student.getClassName()).append("</td>\n").append("                                            <td><i class=\"fas fa-edit\"></i><a data-id=\"").append(i).append("\" class=\"js_a\" href=\"javascript:;\">编辑操行评定成绩</a></td>\n").append("                                        </tr>");
+                s.append("<tr>\n" + "                                            <td>").append(i).append("</td>\n").append("                                            <td id=\"").append(i).append("\">").append(student.getUserId()).append("</td>\n").append("                                            <td>").append(student.getName()).append("</td>\n").append("                                            <td class=\"process\">").append(student.getClassName()).append("</td>\n").append("                                            <td><i class=\"fas fa-edit\"></i><a data-id=\"").append(i).append("\" class=\"js_a\" href=\"javascript:;\">编辑综合测评成绩</a></td>\n").append("                                        </tr>");
                 i++;
             }
             s.append("</tbody>\n" + "                                    </table>\n" + "                                </div>\n" + "                            </div>\n" + "                        </div>");
@@ -959,11 +959,87 @@ public class MenusController {
     @ResponseBody
     public String checkEvaluationScoreButton(int begin, String username) {
 
+        int scoreOne = 0;
+        int scoreTwo = 0;
+        int scoreThree = 0;
+        int scoreFour = 0;
+
+        int end = begin + 1;
+
         List<Score> scoreList = scoreDao.findScore(username, begin);
         if (scoreList.size() == 0) {
             return "你所选择的学年目前还没有测评结果！";
         }
+        List<Integer> typeOne = evaluationItemDao.findIds(1);
+        List<Integer> typeTwo = evaluationItemDao.findIds(2);
+        List<Integer> typeThree = evaluationItemDao.findIds(3);
+        List<Integer> typeFour = evaluationItemDao.findIds(4);
 
-        return begin + username;
+        for (Score score :
+                scoreList) {
+            if (typeOne.contains(score.getItemId())) {
+                scoreOne += score.getScore();
+                if (scoreOne > 100) {
+                    scoreOne = 100;
+                    continue;
+                }
+                continue;
+            }
+            if (typeTwo.contains(score.getItemId())) {
+                scoreTwo += score.getScore();
+                if (scoreTwo > 100) {
+                    scoreTwo = 100;
+                    continue;
+                }
+                continue;
+            }
+            if (typeThree.contains(score.getItemId())) {
+                scoreThree += score.getScore();
+                if (scoreThree > 100) {
+                    scoreThree = 100;
+                    continue;
+                }
+                continue;
+            }
+            if (typeFour.contains(score.getItemId())) {
+                scoreFour += score.getScore();
+                if (scoreFour > 100) {
+                    scoreFour = 100;
+                }
+            }
+
+        }
+        int sum = (int) (scoreOne * 0.15 + scoreTwo * 0.7 + scoreThree * 0.05 + scoreFour * 0.1);
+        return "<div class=\"card\">\n" +
+                "                            <div class=\"card-header\">\n" +
+                "                                <strong>"+ begin +"-"+ end +"学年 你的综合测评各项得分如下</strong>\n" +
+                "                            </div>\n" +
+                "                            <div class=\"card-body card-block\">\n" +
+                "                                <form class=\"form-group\" action=\"\" method=\"post\">\n" +
+                "                                    <div class=\"row form-inline col-lg-6\">\n" +
+                "                                        <label class=\"form-control-label\" for=\"1\">思想与道德素质（15%）：</label>\n" +
+                "                                        <input type=\"text\" id=\"1\" class=\"form-control col-lg-3\" readonly=\"readonly\" value=\""+ scoreOne +"分\">\n" +
+                "                                    </div>\n" +
+                "                                    <div class=\"row form-inline col-lg-6\">\n" +
+                "                                        <label class=\"form-control-label\" for=\"2\">专业与文化素质（70%）：</label>\n" +
+                "                                        <input type=\"text\" id=\"2\" class=\"form-control col-lg-3\" readonly=\"readonly\" value=\""+ scoreTwo +"分\">\n" +
+                "                                    </div>\n" +
+                "                                    <div class=\"row form-inline col-lg-6\">\n" +
+                "                                        <label class=\"form-control-label\" for=\"3\">文体与身心素质（5%）：</label>\n" +
+                "                                        <input type=\"text\" id=\"3\" class=\"form-control col-lg-3\" readonly=\"readonly\" value=\""+ scoreThree +"分\">\n" +
+                "                                    </div>\n" +
+                "                                    <div class=\"row form-inline col-lg-6\">\n" +
+                "                                        <label class=\"form-control-label\" for=\"4\">创新与实践素质（10%）：</label>\n" +
+                "                                        <input type=\"text\" id=\"4\" class=\"form-control col-lg-3\" readonly=\"readonly\" value=\""+ scoreFour +"分\">\n" +
+                "                                    </div>\n" +
+                "                                    <div class=\"row form-inline col-lg-6\">\n" +
+                "                                        <label class=\"form-control-label\" for=\"5\">综合测评总分：</label>\n" +
+                "                                        <input type=\"text\" id=\"5\" class=\"form-control col-lg-3\" readonly=\"readonly\" value=\""+ sum +"分\">\n" +
+                "                                    </div>\n" +
+                "                                </form>\n" +
+                "                            </div>\n" +
+                "                            <div class=\"card-footer\">\n" +
+                "                            </div>\n" +
+                "                        </div>";
     }
 }

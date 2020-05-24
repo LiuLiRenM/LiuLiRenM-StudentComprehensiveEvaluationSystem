@@ -471,26 +471,37 @@
                         </div>
                     </div>--%>
 
-                        <div class="card">
+                        <%--<div class="card">
                             <div class="card-header">
-                                <strong>请选择要查询的学年</strong>
+                                <strong>2016-2017学年你的综合测评各项得分如下</strong>
                             </div>
                             <div class="card-body card-block">
-                                <form class="form-inline" action="" method="post">
+                                <form class="form-group" action="" method="post">
                                     <div class="row form-inline col-lg-6">
-                                        <label class="form-control-label" for="begin">综合测评学年：</label>
-                                        <input type="text" id="begin" class="form-control col-lg-3">
-                                        <span>-</span>
-                                        <input type="text" id="end" class="form-control col-lg-3">
+                                        <label class="form-control-label" for="1">思想与道德素质（15%）：</label>
+                                        <input type="text" id="1" class="form-control col-lg-3" readonly="readonly" value="100分">
+                                    </div>
+                                    <div class="row form-inline col-lg-6">
+                                        <label class="form-control-label" for="2">专业与文化素质（70%）：</label>
+                                        <input type="text" id="2" class="form-control col-lg-3" readonly="readonly" value="100分">
+                                    </div>
+                                    <div class="row form-inline col-lg-6">
+                                        <label class="form-control-label" for="3">文体与身心素质（5%）：</label>
+                                        <input type="text" id="3" class="form-control col-lg-3" readonly="readonly" value="100分">
+                                    </div>
+                                    <div class="row form-inline col-lg-6">
+                                        <label class="form-control-label" for="4">创新与实践素质（10%）：</label>
+                                        <input type="text" id="4" class="form-control col-lg-3" readonly="readonly" value="100分">
+                                    </div>
+                                    <div class="row form-inline col-lg-6">
+                                        <label class="form-control-label" for="5">综合测评总分：</label>
+                                        <input type="text" id="5" class="form-control col-lg-3" readonly="readonly" value="100分">
                                     </div>
                                 </form>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary btn-sm" id="checkEvaluationScoreButton">
-                                    <i class="fa fa-dot-circle-o"></i> 查看综合测评成绩
-                                </button>
                             </div>
-                        </div>
+                        </div>--%>
 
                 </div>
             </div>

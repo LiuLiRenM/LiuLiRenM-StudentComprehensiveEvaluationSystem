@@ -36,4 +36,7 @@ public interface EvaluationItemDao {
 
     @Select("select * from evaluationitem where id in (select evaluationitemId from class_item where classId = #{classId} and beginYear = #{beginYear} and evaluationtypeId = #{evaluationtypeId})")
     public List<EvaluationItem> findEvaluationItem(@Param("classId") int classId, @Param("beginYear") int beginYear, @Param("evaluationtypeId") int evaluationtypeId);
+
+    @Select("select id from evaluationitem where typeId = #{typeId}")
+    List<Integer> findIds(@Param("typeId") int typeId);
 }
